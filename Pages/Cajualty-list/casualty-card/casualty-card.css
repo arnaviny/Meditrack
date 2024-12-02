@@ -1,3 +1,15 @@
+.victim-card.evacuated {
+    background-color: #eaffea; /* ירוק בהיר לפצוע שפונה */
+  }
+  
+  .victim-card.waiting {
+    background-color: #ffe6e6; /* אדום בהיר לפצוע שממתין לפינוי */
+  }
+  
+  .victim-card.no-priority {
+    background-color: #e6e6ff; /* כחול בהיר לפצוע ללא עדיפות לפינוי */
+  }
+
 /* סגנון כללי */
 body {
     font-family: Arial, sans-serif;
@@ -9,6 +21,15 @@ body {
     align-items: center;
     height: 100vh;
   }
+  #victim-cards-container {
+    display: flex;
+    flex-direction: column; /* סידור הקלפים בעמודה */
+    gap: 40px; /* מרווח אנכי בין הקלפים */
+    align-items: center; /* יישור מרכזי */
+    width: 100%; /* התאמה לרוחב */
+    padding: 20px; /* ריווח פנימי מכל הצדדים */
+  }
+  
   
   .victim-card {
     width: 90%;
@@ -20,6 +41,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    /* scale: 200%; */
   }
   #card-header{
     display: flex;
