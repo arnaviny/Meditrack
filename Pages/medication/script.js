@@ -152,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const textElement = document.createElement('p');
         textElement.textContent = `${medicineName}: ${dosage}${unit}`;
+        textElement.className = 'mdn-text'
 
         const timestamp = document.createElement('span');
         timestamp.className = 'timestamp-text'
@@ -188,4 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         historyContainer.appendChild(historyItem);
     }
+
+
 });
