@@ -161,19 +161,9 @@ video, canvas {
     
             // קונטרסט דינמי
             for (let i = 0; i < data.length; i += 4) {
-                data[i] = Math.min(255, data[i] * 1.5);     // אדום
+                data[i] = Math.min(255, data[i] * 1.5); // אדום
                 data[i + 1] = Math.min(255, data[i + 1] * 1.5); // ירוק
                 data[i + 2] = Math.min(255, data[i + 2] * 1.5); // כחול
-            }
-    
-            // טשטוש קל (ממוצע שכנים)
-            for (let y = 1; y < canvas.height - 1; y++) {
-                for (let x = 1; x < canvas.width - 1; x++) {
-                    const idx = (y * canvas.width + x) * 4;
-                    data[idx] = (data[idx - 4] + data[idx] + data[idx + 4]) / 3; // אדום
-                    data[idx + 1] = (data[idx - 3] + data[idx + 1] + data[idx + 5]) / 3; // ירוק
-                    data[idx + 2] = (data[idx - 2] + data[idx + 2] + data[idx + 6]) / 3; // כחול
-                }
             }
     
             ctx.putImageData(imageData, 0, 0);
@@ -213,6 +203,14 @@ video, canvas {
                 recognizedName.textContent = `שם: ${name}`;
                 recognizedID.textContent = `מספר אישי: ${id}`;
     
+                // שמירת הנתונים ב-localStorage
+                const nameAndID = { name, ID: id };
+                const existingData = JSON.parse(localStorage.getItem('transcriptions')) || [];
+                existingData.push(nameAndID);
+                localStorage.setItem('transcriptions', JSON.stringify(existingData));
+    
+                console.log("נתונים שנשמרו:", nameAndID);
+    
                 // מעבר לתוצאות
                 canvas.style.display = 'none'; // הסתרת התמונה
                 resultContainer.style.display = 'flex'; // הצגת התוצאה
@@ -237,10 +235,16 @@ video, canvas {
             };
             console.log("נתונים שנשמרו:", nameAndID);
     
+            // שמירת הנתונים ב-localStorage (במקרה שלא נשמר קודם)
+            const existingData = JSON.parse(localStorage.getItem('transcriptions')) || [];
+            existingData.push(nameAndID);
+            localStorage.setItem('transcriptions', JSON.stringify(existingData));
+    
             // חזרה לדף הקודם עם הנתונים
             history.back(); // מחזיר את המשתמש לדף הקודם
         });
     </script>
+    
     
     
         
