@@ -9,13 +9,6 @@
     <link rel="stylesheet" href="bottomNav.css">
 </head>
 <body>
-    <nav class="topNav">
-        <button data-filter="all">All</button>
-        <button data-filter="deceased">Deceased</button>
-        <button data-filter="critical">Critical</button>
-        <button data-filter="urgent">Urgent</button>
-        <button data-filter="stable">Stable</button>
-    </nav>
     
     
         
@@ -23,24 +16,33 @@
         
     <nav class="botomNav">
         <button class="victims">
-            <a href="">
-            <img src="../../../asets/svg's/light-emergency-on-svgrepo-com.svg" alt="victims svg" class="botomNavSVG"> <br>
+          <a href="../Casualty-list/casualty-card/casualty-card.html">
+            <img
+              src="../../../asets/svg's/light-emergency-on-svgrepo-com.svg"
+              alt="victims svg"
+              class="botomNavSVG"
+            />
+            <br />
             victims
-            </a>  
+          </a>
         </button>
-        
+  
         <button class="addCasualty">
-        <a href="">
-            <img src="../../../asets/svg's/plus-circle-svgrepo-com.svg" alt="" class="botomNavSVG"> <br>
+          <a href="">
+            <img
+              src="../../../asets/svg's/plus-circle-svgrepo-com.svg"
+              alt=""
+              class="botomNavSVG"
+            />
+            <br />
             Add casualty
-        </a>
+          </a>
         </button>
-        <button class="ptt">
-        <a href="">
-        <img src="../../../asets/svg's/microphone-svgrepo-com.svg" alt="" class="botomNavSVG"> <br>
+        <button class="ptt" onmousedown="startListening()" onmouseup="stopListening()">
+          <img src="../../asets/svg's/microphone-svgrepo-com.svg" alt="" class="botomNavSVG ptt-icon"> <br>
             PTT
-        </a>
         </button>
-    </nav>
+      </nav>
+      <script src="../PTT/common.js"></script>
 </body>
 </html>
