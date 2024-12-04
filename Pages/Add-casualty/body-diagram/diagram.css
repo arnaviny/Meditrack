@@ -1,0 +1,136 @@
+*{font-family: Arial, Helvetica, sans-serif;}
+.human-body {
+    width: 80%;   
+    height: 80%;
+    position: relative;
+    display: block;
+    margin: auto;
+    z-index: 0;
+    }
+    .human-body :nth-child(1){
+        width: 51%;
+        margin-left: 25%;
+    }
+    .human-body :nth-child(2){
+        width: 105%;
+        margin-left: -1%;
+        margin-top: -9%;
+    }
+    .human-body :nth-child(3){
+        width: 104%;
+        margin-left : 31%;
+        margin-top: -24%;
+    }
+    .human-body :nth-child(4){
+        width: 130%;
+        margin-left: -16%;
+        margin-top: -4%;
+    }
+    .human-body :nth-child(5){
+        width: 130%;
+        margin-left: 37%;
+        margin-top: -52%;
+    }
+    .human-body :nth-child(6){
+        width: 80%;
+        margin-left: 11%;
+        margin-top: -63%;
+    }
+    .human-body :nth-child(7){
+        width: 66%;
+        margin-left: 18%;
+        margin-top: -3%;
+    }
+    .human-body :nth-child(8){
+        width: 75%;
+        margin-left: 12%;
+        margin-top: -17%;
+    }
+    .human-body :nth-child(9){
+        width: 65%;
+        margin-left: 37%;
+        margin-top: -104%;
+    }
+    .human-body :nth-child(10){
+        width: 68%;
+        margin-top: -97%;
+        margin-left: -8%;
+    }
+    .human-body :nth-child(11){
+        width: 67%;
+        margin-left: 65%;
+        margin-top: -17%;
+
+    }
+    .human-body :nth-child(12){
+        width: 25%;
+        margin-left: 27%;
+        margin-top: 79%;
+    }
+    .human-body :nth-child(13){
+        width: 69%;
+        margin-left: 39%;
+        margin-top: -14%;   
+    }
+
+/* form */
+
+#form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.833); /* לבן עם 80% אטימות */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 55%;
+    height: 45%;
+    max-width: 250px;
+    display: none; /* Hidden by default */
+    z-index: 10;
+    overflow: hidden; /* Added to prevent any overflow issues */
+   
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+button {
+    width: 48%; /* כל כפתור יתפוס 48% מהרוחב */
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #007bff; /* צבע ברירת מחדל */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s; /* אנימציה לשינוי הצבע */
+    margin: 1%;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px; /* Ensure margin is included to space the buttons apart */
+}
+
+#overlay {
+    display: none; /* ההתחלה של ה-overlay מוסתרת */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
