@@ -18,11 +18,10 @@ function startListening() {
     console.log("Listening...");
 }
 
-// Stop listening for speech and save to file
+// Stop listening for speech
 function stopListening() {
     recognition.stop();
     console.log("Stopped listening...");
-    saveTranscriptionsToFile(); // Save automatically after stopping
 }
 
 // Handle recognition results
@@ -32,7 +31,15 @@ recognition.onresult = (event) => {
             const text = event.results[i][0].transcript.trim(); // Get transcribed text
             const textWithTimestamp = addTranscriptionWithTimestamp(text); // Add timestamp
             transcriptions += textWithTimestamp + "\n"; // Append to transcriptions
+
+            // Save transcription to localStorage
+            localStorage.setItem("transcriptions", transcriptions);
+
+            // Log transcription
             console.log("Recognized text:", textWithTimestamp);
+
+            // Log full transcription history
+            console.log("Full transcription history:", localStorage.getItem("transcriptions"));
         }
     }
 };
@@ -42,19 +49,6 @@ recognition.onerror = (event) => {
     console.error("Recognition error:", event.error);
     alert("Error during speech recognition: " + event.error);
 };
-
-// Save all transcriptions to a file automatically
-function saveTranscriptionsToFile() {
-    const fileName = `transcriptions.txt`; // Fixed file name
-    const textBlob = new Blob([transcriptions], { type: "text/plain" });
-    const downloadLink = document.createElement("a");
-    downloadLink.href = URL.createObjectURL(textBlob);
-    downloadLink.download = fileName;
-    downloadLink.style.display = "none";
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-}
 
 // Attach events to PTT button
 const pttButton = document.querySelector(".ptt");

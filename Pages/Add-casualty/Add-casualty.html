@@ -1,185 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="Style.css" />
-    <link rel="stylesheet" href="bottomNav.css" />
-  </head>
-  <body>
-    <div class="container">
-      <header class="top">
-        <h1>Casualty Detail</h1>
-        <button class="camera">
-          <img
-            class="logo-camera"
-            src="../../asets/svg's/QR SCAN.svg"
-            alt="logo of scan"
-          />
-        </button>
-      </header>
-
-      <div class="deatails">
-        <form class="simple-form">
-          <label for="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Type Name"
-            required
-          />
-
-          <label for="id">ID</label>
-          <input type="text" id="id" name="id" placeholder="Type ID" required />
-        </form>
-        <hr />
-        <br />
-      </div>
-      <div class="vital">
-        <form class="vital-signs">
-          <h2><b>Vital Signs</b></h2>
-
-          <label for="pulse">Pulse</label>
-          <select class="select-vital" name="pulse" id="pulse" required>
-            <option value="very low">Very Low</option>
-            <option value="low">Low</option>
-            <option value="normal">Normal</option>
-            <option value="high">High</option>
-            <option value="very-high">Very High</option>
-          </select>
-
-          <label for="breathing">Breathing</label>
-          <select class="select-vital" name="breathing" id="breathing" required>
-            <option value="very low">Very Low</option>
-            <option value="low">Low</option>
-            <option value="normal">Normal</option>
-            <option value="high">High</option>
-            <option value="very-high">Very High</option>
-          </select>
-
-          <label for="blood-pressure">Blood Pressure</label>
-          <select
-            class="select-vital"
-            name="blood-pressure"
-            id="blood-pressure"
-            required
-          >
-            <option value="very low">Very Low</option>
-            <option value="low">Low</option>
-            <option value="normal">Normal</option>
-            <option value="high">High</option>
-            <option value="very-high">Very High</option>
-          </select>
-
-          <label for="consciousness-level">Consciousness Level</label>
-          <select
-            class="select-vital"
-            name="consciousness-level"
-            id="consciousness-level"
-            required
-          >
-            <option value="alert"><b>Alert</b></option>
-            <option value="Responds to voice"><b>Responds to Voice</b></option>
-            <option value="Responds to pain"><b>Responds to Pain</b></option>
-            <option value="unresponsive"><b>Unresponsive</b></option>
-          </select>
-        </form>
-      </div>
-      <div class="con-shock">
-        <h2>shock signs</h2>
-        <div class="shock">
-          <button type="button" class="shock-item">
-            <b>Sweating</b>
-          </button>
-          <button type="button" class="shock-item">
-            <b>Fast and Weak Pulse</b>
-          </button>
-          <button type="button" class="shock-item">
-            <b>Changes in Consciousness</b>
-          </button>
-          <button type="button" class="shock-item"><b>Paleness</b></button>
-        </div>
-      </div>
-      <div class="more"></div>
-      <div class="BLS-treatment">
-        <label for="treatment-select"><b>BLS Treatment:</b></label>
-        <select id="treatment-select">
-          <option value="" disabled selected>Treatments</option>
-          <option value="Bleeding Control">
-            - Bleeding Control (Direct Pressure/Pressure Point/Tourniquet)
-          </option>
-          <option value="Splints">- Splints</option>
-          <option value="Chest Seal">- Chest Seal</option>
-          <option value="Basic Respiratory Support">
-            - Basic Respiratory Support
-          </option>
-        </select>
-        <button id="add-treatment-btn">Add</button>
-        <div id="selected-treatments" class="selected-treatments"></div>
-      </div>
-      <div class="ALS-treatment">
-        <label for="treatment-select-ALS"><b>ALS Treatment:</b></label>
-        <select id="treatment-select-ALS">
-          <option value="" disabled selected>Treatments</option>
-          <option value="Intubation">- Intubation</option>
-          <option value="Chest Tube">- Chest Tube</option>
-          <option value="Medication Administration">
-            - Medication Administration (e.g., Morphine, Tropein)
-          </option>
-          <option value="Needle Decompression">- Needle Decompression</option>
-          <option value="- IV Fluids">- IV Fluids</option>
-        </select>
-
-        <button id="add-treatment-atn">Add</button>
-        <div id="selected-treatments-ALS" class="selected-treatments"></div>
-      </div>
-      <div class="submit-section">
-        <button id="submitButton">Submit</button>
-        <button id="clearButton" class="clear-btn">Clear</button>
-        <button id="previewButton" class="preview-button">
-          <a href="home page">preview</a>
-        </button>
-      </div>
-    </div>
-
-    <nav class="botomNav">
-      <button class="victims">
-        <a href="../Casualty-list/casualty-card/casualty-card.html">
-          <img
-            src="../../../asets/svg's/light-emergency-on-svgrepo-com.svg"
-            alt="victims svg"
-            class="botomNavSVG"
-          />
-          <br />
-          victims
-        </a>
-      </button>
-
-      <button class="addCasualty">
-        <a href="">
-          <img
-            src="../../../asets/svg's/plus-circle-svgrepo-com.svg"
-            alt=""
-            class="botomNavSVG"
-          />
-          <br />
-          Add casualty
-        </a>
-      </button>
-      <button class="ptt">
-        <a href="">
-          <img
-            src="../../../asets/svg's/microphone-svgrepo-com.svg"
-            alt=""
-            class="botomNavSVG"
-          />
-          <br />
-          PTT
-        </a>
-      </button>
+    <link rel="stylesheet" href="topNav.css">
+    <link rel="stylesheet" href="cards.css">
+    <link rel="stylesheet" href="bottomNav.css">
+</head>
+<body>
+    <nav class="topNav">
+        <button data-filter="all">All</button>
+        <button data-filter="deceased">Deceased</button>
+        <button data-filter="critical">Critical</button>
+        <button data-filter="urgent">Urgent</button>
+        <button data-filter="stable">Stable</button>
     </nav>
-    <script src="Script.js"></script>
-  </body>
+    
+    
+        
+        
+        
+    <nav class="botomNav">
+        <button class="victims">
+            <a href="../Casualty-list/casualty-card/casualty-card.html">
+            <img src="../../../asets/svg's/light-emergency-on-svgrepo-com.svg" alt="victims svg" class="botomNavSVG"> <br>
+            victims
+            </a>  
+        </button>
+        
+        <button class="addCasualty">
+        <a href="">
+            <img src="../../../asets/svg's/plus-circle-svgrepo-com.svg" alt="" class="botomNavSVG"> <br>
+            Add casualty
+        </a>
+        </button>
+        <button class="ptt">
+        <a href="">
+        <img src="../../../asets/svg's/microphone-svgrepo-com.svg" alt="" class="botomNavSVG"> <br>
+            PTT
+        </a>
+        </button>
+    </nav>
+</body>
 </html>
