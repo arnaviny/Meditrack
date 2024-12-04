@@ -1,0 +1,12 @@
+.botomNav{
+    position: fixed; /* מקבע את המיקום של הסרגל במסך */
+    bottom: 0; /* מצמיד אותו לתחתית העמוד */
+    left: 0;
+    right: 0;
+    padding: 20px; /* מוסיף ריווח פנימי של 20 פיקסלים */
+    background-color: #007bff; /* צבע רקע */
+    color: white; /* צבע טקסט */
+    text-align: center; /* ממרכז את התוכן בתוך הסרגל */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* צל מרחף */
+    z-index: 1000; /* מוודא שהוא מעל שאר האלמנטים */
+}

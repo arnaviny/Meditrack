@@ -1,53 +1,61 @@
-.victim-card.evacuated {
-    background-color: #eaffea; /* ירוק בהיר לפצוע שפונה */
-  }
-  
-  .victim-card.waiting {
-    background-color: #ffe6e6; /* אדום בהיר לפצוע שממתין לפינוי */
-  }
-  
-  .victim-card.no-priority {
-    background-color: #e6e6ff; /* כחול בהיר לפצוע ללא עדיפות לפינוי */
-  }
-
-  .victim-card.urgent {
-    background-color: #fff9c4; /* צהוב בהיר */
+.victim-card.deceased {
+  background-color: #3b3b3b; /* שחור */
+  color: white;
 }
+
+.victim-card.critical {
+  background-color: #fca5a5; /* אדום בהיר */
+}
+
+.victim-card.urgent {
+  background-color: #fff9c4; /* צהוב בהיר */
+}
+
+.victim-card.stable {
+  background-color: #81ea94; /* ירוק */
+}
+
 
 
 /* סגנון כללי */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
   #victim-cards-container {
     display: flex;
     flex-direction: column; /* סידור הקלפים בעמודה */
-    gap: 40px; /* מרווח אנכי בין הקלפים */
+    gap: 20px; /* מרווח אנכי בין הקלפים */
     align-items: center; /* יישור מרכזי */
     width: 100%; /* התאמה לרוחב */
     padding: 20px; /* ריווח פנימי מכל הצדדים */
-  }
+    overflow-y: auto; /* גלילה במקרה שהמכולה גדולה מדי */
+}
+
   
   
-  .victim-card {
-    width: 90%;
-    max-width: 400px;
-    background-color: #eaffea;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    /* scale: 200%; */
-  }
+.victim-card {
+  width: 90%;
+  max-width: 400px;
+  background-color: #eaffea;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-sizing: border-box; /* מבטיח שה-padding לא יחרוג מהגודל */
+  min-height: 150px; /* גובה מינימלי */
+}
+
+
+
   #card-header{
     display: flex;
     flex-direction: row;
@@ -158,4 +166,78 @@ body {
   .more-button:hover {
     background-color: #c2c2c2;
   }
+
+  .topNav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: none;
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.topNav button {
+    background: none;
+    border: none;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+.topNav button:focus{
+  color: white;
+}
+
+.topNav button:hover {
+    background-color: #333;
+}
+
   
+  .botomNav{
+    position: fixed; /* מקבע את המיקום של הסרגל במסך */
+    display: flex;
+    bottom: 20px; /* מצמיד אותו לתחתית העמוד */
+    left: 0.5em;
+    right: 0;
+    padding: 20px; /* מוסיף ריווח פנימי של 20 פיקסלים */
+    background-color: #000000; /* צבע רקע */
+    border-radius: 40px;
+    width: max-content;
+    color: white; /* צבע טקסט */
+    text-align: center; /* ממרכז את התוכן בתוך הסרגל */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* צל מרחף */
+    z-index: 1000; /* מוודא שהוא מעל שאר האלמנטים */
+}
+
+.botomNavSVG{
+  width: 2em;
+  filter: invert(1);
+  padding-left: 3em;
+  padding-right: 3em;
+}
+
+.botomNav button{
+  background: none; /* ללא רקע */
+    border: none; /* ללא גבול */
+    text-align: center; /* ממרכז את התוכן */
+    color: white; /* צבע טקסט */
+    cursor: pointer;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+ 
+@media (max-width: 600px) {
+  .victim-card {
+      width: 95%; /* הקטנת רוחב במסכים קטנים */
+  }
+}

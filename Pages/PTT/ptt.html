@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTT Transcription</title>
+    <style>
+        #ptt-button {
+            padding: 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #ptt-button:active {
+            background-color: #0056b3;
+        }
+        #transcription {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PTT תמלול (Push-to-Talk)</h1>
+    <button id="ptt-button">לחץ ודבר</button>
+    <div id="transcription">תמלול:</div>
+
+    <script>
+        const pttButton = document.getElementById('ptt-button');
+        const transcriptionDiv = document.getElementById('transcription');
+
+        // Web Speech API
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'he-IL'; // עברית
+        recognition.interimResults = true; // תוצאה זמנית
+
+        let isListening = false; // מעקב אחרי מצב ההאזנה
+
+        // התחלת זיהוי דיבור
+        recognition.onresult = (event) => {
+            const interimTranscript = Array.from(event.results)
+                .map(result => result[0].transcript)
+                .join('');
+            transcriptionDiv.textContent = `תמלול: ${interimTranscript}`;
+        };
+
+        recognition.onerror = (event) => {
+            console.error('שגיאה בזיהוי הדיבור:', event.error);
+            transcriptionDiv.textContent = `שגיאה: ${event.error}`;
+        };
+
+        // לחיצה על הכפתור מתחילה את הזיהוי
+        pttButton.addEventListener('mousedown', () => {
+            if (!isListening) {
+                isListening = true;
+                recognition.start();
+                transcriptionDiv.textContent = 'מתמלל...';
+            }
+        });
+
+        // שחרור הכפתור עוצר את הזיהוי
+        pttButton.addEventListener('mouseup', () => {
+            if (isListening) {
+                isListening = false;
+                recognition.stop();
+                transcriptionDiv.textContent += ' (הסתיים)';
+            }
+        });
+
+        // שחרור הכפתור גם במקרה של יציאה מהאלמנט
+        pttButton.addEventListener('mouseleave', () => {
+            if (isListening) {
+                isListening = false;
+                recognition.stop();
+                transcriptionDiv.textContent += ' (הסתיים)';
+            }
+        });
+    </script>
+</body>
+</html>
