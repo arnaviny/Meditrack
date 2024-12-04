@@ -35,3 +35,24 @@
     text-decoration: none;
     color: inherit;
 }
+
+.ptt {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.ptt:focus .ptt-icon,
+.ptt:active .ptt-icon {
+    filter: brightness(0) saturate(100%) invert(21%) sepia(97%) saturate(7461%) hue-rotate(1deg) brightness(100%) contrast(120%);
+
+}
+
+
+/* לוודא שהסגנון הבסיסי נשאר */
+.ptt-icon {
+    width: 2em;
+    height: 2em;
+    fill: currentColor; /* תומך בשינוי צבע */
+    transition: fill 0.3s ease; /* עבור אנימציה */
+}
