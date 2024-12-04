@@ -1,4 +1,4 @@
-//selc on shock sign  
+//selc on shock sign
 
 const shockButtons = document.querySelectorAll(".shock-item");
 const submitButton = document.getElementById("submitButton");
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const formInputs = document.querySelectorAll("input[type='text']");
   const dropdowns = document.querySelectorAll("select");
   const shockButtons = document.querySelectorAll(".shock-item");
-// clear button
+  // clear button
   // Add event listener to the clear button
   clearButton.addEventListener("click", () => {
     // Clear all text inputs
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Form cleared.");
   });
 });
-//print deatils
+// print deatils
 // Ensure the script runs after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   // Get references to the submit button and all input elements
@@ -158,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const formInputs = document.querySelectorAll("input[type='text']");
   const dropdowns = document.querySelectorAll("select");
   const shockButtons = document.querySelectorAll(".shock-item");
+  const choose = document.querySelectorAll("human-body");
 
   // Add event listener to the submit button
   submitButton.addEventListener("click", (event) => {
@@ -185,9 +186,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Log the object to the console
     console.log("Form Data:", formData);
-    localStorage.setItem('form-data', JSON.stringify(formData)) //push
-    const data = JSON.parse(localStorage.getItem('form-data')) //pull
-    
+    localStorage.setItem("form-data", JSON.stringify(formData)); //push
+    const data = JSON.parse(localStorage.getItem("form-data")); //pull
+
     // Optional: Perform further actions, such as sending the data to a server
   });
 });
