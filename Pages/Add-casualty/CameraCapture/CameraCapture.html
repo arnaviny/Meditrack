@@ -131,100 +131,119 @@ video, canvas {
 
     <script>
         const video = document.getElementById('video');
-const captureButton = document.getElementById('capture-button');
-const canvas = document.getElementById('canvas');
-const context = canvas.getContext('2d');
-const resultContainer = document.getElementById('result-container');
-const recognizedName = document.getElementById('recognized-name');
-const recognizedID = document.getElementById('recognized-id');
-const retryButton = document.getElementById('retry-button');
-const saveButton = document.getElementById('save-button');
-
-let stream = null;
-
-// הפעלת מצלמה
-navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-    .then(videoStream => {
-        stream = videoStream;
-        video.srcObject = stream;
-    })
-    .catch(err => {
-        console.error("Error accessing the camera:", err);
-        alert("לא ניתן לגשת למצלמה. בדוק הרשאות.");
-    });
-
-// קליטת תמונה בלחיצה על הכפתור
-captureButton.addEventListener('click', () => {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-    function preprocessImage(canvas) {
-    const ctx = canvas.getContext('2d');
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-    // הפיכת התמונה לגווני אפור
-    for (let i = 0; i < imageData.data.length; i += 4) {
-        const avg = (imageData.data[i] + imageData.data[i + 1] + imageData.data[i + 2]) / 3;
-        imageData.data[i] = avg; // אדום
-        imageData.data[i + 1] = avg; // ירוק
-        imageData.data[i + 2] = avg; // כחול
-    }
-
-    ctx.putImageData(imageData, 0, 0);
-}
-
-    // מציג את התמונה שצולמה
-    video.style.display = 'none'; // הסתרת הווידאו
-    canvas.style.display = 'block'; // הצגת התמונה
-
-    // עיבוד עם Tesseract.js
-    const image = canvas.toDataURL('image/jpeg');
-    captureButton.disabled = true; // מניעת לחיצה נוספת עד סיום העיבוד
-    captureButton.textContent = "Processing..."; // שינוי טקסט הכפתור
-
-    Tesseract.recognize(
-        image,
-        'heb', // תחליף ל-'heb' אם אתה מזהה בעברית
-        { logger: info => console.log(info) }
-    ).then(({ data: { text } }) => {
-        // מציאת שם ומספר אישי
-        const lines = text.split('\n');
-        const name = lines.find(line => line.match(/[\u0590-\u05FF\s]+/)) || "Unknown Name"; // תמיכה בעברית
-        const id = lines.find(line => line.match(/^\d{7,10}$/)) || "Unknown ID"; // מספר ת"ז
-
-
-        recognizedName.textContent = `Name: ${name}`;
-        recognizedID.textContent = `ID: ${id}`;
-
-        // מעבר לתוצאות
-        canvas.style.display = 'none'; // הסתרת התמונה
-        resultContainer.style.display = 'flex'; // הצגת התוצאה
-    }).catch(err => {
-        console.error("Error during OCR:", err);
-        alert("שגיאה בזיהוי התמונה.");
-        captureButton.disabled = false; // הפעלת הכפתור מחדש
-        captureButton.textContent = "📸"; // שחזור הטקסט המקורי בכפתור
-    });
-});
-
-// כפתור "צלם מחדש"
-retryButton.addEventListener('click', () => {
-    location.reload(); // טוען מחדש את הדף
-});
-
-// כפתור "שמור"
-saveButton.addEventListener('click', () => {
-    const nameAndID = {
-        name: recognizedName.textContent.replace("Name: ", ""),
-        ID: recognizedID.textContent.replace("ID: ", "")
-    };
-    console.log("Saved Data:", nameAndID);
-
-    // חזרה לדף הקודם עם הנתונים
-    history.back(); // מחזיר את המשתמש לדף הקודם
-});
+        const captureButton = document.getElementById('capture-button');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const resultContainer = document.getElementById('result-container');
+        const recognizedName = document.getElementById('recognized-name');
+        const recognizedID = document.getElementById('recognized-id');
+        const retryButton = document.getElementById('retry-button');
+        const saveButton = document.getElementById('save-button');
+    
+        let stream = null;
+    
+        // הפעלת מצלמה
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+            .then(videoStream => {
+                stream = videoStream;
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("Error accessing the camera:", err);
+                alert("לא ניתן לגשת למצלמה. בדוק הרשאות.");
+            });
+    
+        // פונקציה לעיבוד תמונה: קונטרסט, טשטוש וחידוד
+        function enhanceImage(canvas) {
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+    
+            // קונטרסט דינמי
+            for (let i = 0; i < data.length; i += 4) {
+                data[i] = Math.min(255, data[i] * 1.5);     // אדום
+                data[i + 1] = Math.min(255, data[i + 1] * 1.5); // ירוק
+                data[i + 2] = Math.min(255, data[i + 2] * 1.5); // כחול
+            }
+    
+            // טשטוש קל (ממוצע שכנים)
+            for (let y = 1; y < canvas.height - 1; y++) {
+                for (let x = 1; x < canvas.width - 1; x++) {
+                    const idx = (y * canvas.width + x) * 4;
+                    data[idx] = (data[idx - 4] + data[idx] + data[idx + 4]) / 3; // אדום
+                    data[idx + 1] = (data[idx - 3] + data[idx + 1] + data[idx + 5]) / 3; // ירוק
+                    data[idx + 2] = (data[idx - 2] + data[idx + 2] + data[idx + 6]) / 3; // כחול
+                }
+            }
+    
+            ctx.putImageData(imageData, 0, 0);
+        }
+    
+        // קליטת תמונה בלחיצה על הכפתור
+        captureButton.addEventListener('click', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+            enhanceImage(canvas); // שיפור תמונה
+    
+            // מציג את התמונה שצולמה
+            video.style.display = 'none'; // הסתרת הווידאו
+            canvas.style.display = 'block'; // הצגת התמונה
+    
+            // עיבוד עם Tesseract.js לזיהוי שם ומספר אישי
+            const image = canvas.toDataURL('image/jpeg');
+            captureButton.disabled = true; // מניעת לחיצה נוספת עד סיום העיבוד
+            captureButton.textContent = "מעבד..."; // שינוי טקסט הכפתור
+    
+            Tesseract.recognize(
+                image,
+                'heb+eng',
+                { logger: info => console.log(info) }
+            ).then(({ data: { text } }) => {
+                const lines = text.split('\n');
+    
+                // זיהוי טקסט לפי "שם" ו"מספר אישי"
+                const nameLine = lines.find(line => line.includes("שם"));
+                const idLine = lines.find(line => line.includes("מספר אישי"));
+    
+                const name = nameLine ? nameLine.replace("שם", "").trim() : "שם לא זוהה";
+                const id = idLine ? idLine.replace("מספר אישי", "").trim() : "מספר אישי לא זוהה";
+    
+                recognizedName.textContent = `שם: ${name}`;
+                recognizedID.textContent = `מספר אישי: ${id}`;
+    
+                // מעבר לתוצאות
+                canvas.style.display = 'none'; // הסתרת התמונה
+                resultContainer.style.display = 'flex'; // הצגת התוצאה
+            }).catch(err => {
+                console.error("שגיאה במהלך עיבוד ה-OCR:", err);
+                alert("שגיאה בזיהוי התמונה.");
+                captureButton.disabled = false; // הפעלת הכפתור מחדש
+                captureButton.textContent = "📸"; // שחזור הטקסט המקורי בכפתור
+            });
+        });
+    
+        // כפתור "צלם מחדש"
+        retryButton.addEventListener('click', () => {
+            location.reload(); // טוען מחדש את הדף
+        });
+    
+        // כפתור "שמור"
+        saveButton.addEventListener('click', () => {
+            const nameAndID = {
+                name: recognizedName.textContent.replace("שם: ", ""),
+                ID: recognizedID.textContent.replace("מספר אישי: ", "")
+            };
+            console.log("נתונים שנשמרו:", nameAndID);
+    
+            // חזרה לדף הקודם עם הנתונים
+            history.back(); // מחזיר את המשתמש לדף הקודם
+        });
     </script>
+    
+    
+        
 </body>
 </html>
 
