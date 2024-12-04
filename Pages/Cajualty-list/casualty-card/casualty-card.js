@@ -1,3 +1,5 @@
+const data = JSON.parse(localStorage.getItem('form-data'))
+
 const victims = [
     {
       victimNumber: "Victim #L0001",
@@ -48,28 +50,28 @@ function createVictimCard(victim) {
   
     card.innerHTML = `
       <div id="card-header">
-          <div class="header" id="victim-number">${victim.victimNumber}</div>
+          <div class="header" id="victim-number">${data.victimNumber | victim.victimNumber}</div>
           <div class="last-updated" id="last-updated">Updated just now</div>
       </div>
       <div class="Identificationanddetails">
           <div class="nameandid">
               <div class="name-section">
                   <div class="label">Name</div>
-                  <div class="value" id="victim-name">${victim.name}</div>
+                  <div class="value" id="victim-name">${ data.victim.name | victim.name}</div>
               </div>
               <div class="id-section">
                   <div class="label">ID</div>
-                  <div class="value" id="victim-id">${victim.id}</div>
+                  <div class="value" id="victim-id">${data.victim.id | victim.id }</div>
               </div>
           </div>
           <div class="injuriesandvitals">
               <div class="injuries-section">
                   <div class="label">Injuries</div>
-                  <div class="value" id="victim-injuries">${victim.injuries}</div>
+                  <div class="value" id="victim-injuries">${data.victim.injuries | victim.injuries}</div>
               </div>
               <div class="vitals-section">
                   <div class="label">Vitals</div>
-                  <div class="value" id="victim-vitals">${victim.vitals}</div>
+                  <div class="value" id="victim-vitals">${data.victim.vitals | victim.vitals }</div>
               </div>  
           </div> 
           <div class="section time-container">
