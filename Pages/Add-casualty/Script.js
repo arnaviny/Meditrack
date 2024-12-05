@@ -23,36 +23,41 @@ const selectedTreatmentsContainerALS = document.getElementById(
 );
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Get references to the clear button and form elements
-  const clearButton = document.getElementById("clearButton");
-  const formInputs = document.querySelectorAll("input[type='text']");
-  const dropdowns = document.querySelectorAll("select");
-  const shockButtons = document.querySelectorAll(".shock-item");
-
-  // clear button
-  // Add event listener to the clear button
-  clearButton.addEventListener("click", () => {
-    // Clear all text inputs
-    formInputs.forEach((input) => {
-      input.value = "";
+    // Get references to the clear button and form elements
+    const clearButton = document.getElementById("clearButton");
+    const formInputs = document.querySelectorAll("input[type='text']");
+    const dropdowns = document.querySelectorAll("select");
+    const shockButtons = document.querySelectorAll(".shock-item");
+    const selectedTreatmentsContainerALS = document.querySelectorAll(".selected-treatments-ALS"); // Assuming this is the correct selector for ALS treatments
+  
+    // clear button
+    // Add event listener to the clear button
+    clearButton.addEventListener("click", (event) => {
+      event.preventDefault(); // Prevent default form submission behavior
+  
+      // Clear all text inputs
+      formInputs.forEach((input) => {
+        input.value = "";
+      });
+  
+      // Reset all dropdowns to their default option
+      dropdowns.forEach((dropdown) => {
+        dropdown.selectedIndex = 0;
+      });
+  
+      // Deselect all shock buttons
+      shockButtons.forEach((button) => {
+        button.classList.remove("selected");
+      });
+  
+      // Deselect all ALS treatment buttons
+      selectedTreatmentsContainerALS.forEach((button) => {
+        button.classList.remove("selected");
+      });
+  
+      console.log("Form cleared.");
     });
-
-    // Reset all dropdowns to their default option
-    dropdowns.forEach((dropdown) => {
-      dropdown.selectedIndex = 0;
-    });
-
-    // Deselect all shock buttons
-    shockButtons.forEach((button) => {
-      button.classList.remove("selected");
-    });
-    selectedTreatmentsContainerALS.forEach((button) => {
-      button.classList.remove("selected");
-    });
-
-    console.log("Form cleared.");
   });
-});
 document.addEventListener("DOMContentLoaded", () => {
   // Get references to relevant elements
   const submitButton = document.getElementById("submitButton");
