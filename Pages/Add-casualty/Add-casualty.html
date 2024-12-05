@@ -82,10 +82,10 @@
             id="consciousness-level"
             required
           >
-            <option value="alert"><b>Alert</b></option>
-            <option value="Responds to voice"><b>Responds to Voice</b></option>
-            <option value="Responds to pain"><b>Responds to Pain</b></option>
-            <option value="unresponsive"><b>Unresponsive</b></option>
+            <option value="alert">Alert</option>
+            <option value="Responds to voice">Responds to Voice</option>
+            <option value="Responds to pain">Responds to Pain</option>
+            <option value="unresponsive">Unresponsive</option>
           </select>
         </form>
       </div>
@@ -130,21 +130,27 @@
           <option value="" disabled selected>Treatments</option>
           <option value="Intubation">- Intubation</option>
           <option value="Chest Tube">- Chest Tube</option>
-          <option value="Medication Administration">
+          <!-- <option value="Medication Administration">
             - Medication Administration (e.g., Morphine, Tropein) >
-          </option>
+          </option> -->
           <option value="Needle Decompression">- Needle Decompression</option>
           <option value="- IV Fluids">- IV Fluids</option>
         </select>
 
         <button id="add-treatment-atn">Add</button>
-        <div id="selected-treatments-ALS" class="selected-treatments"></div>
+        <div id="selected-treatments-ALS" class="selected-treatments">
+          <button id="addMadication" class="add-madication">
+            Add Medication Administration
+          </button>
+        </div>
       </div>
       <div class="submit-section">
         <button id="submitButton">Submit</button>
         <button id="clearButton" class="clear-btn">Clear</button>
         <button id="previewButton" class="preview-button">
-          <a href="Pages\Cajualty-list\casualty-card\casualty-card.html">preview</a>
+          <a href="../Casualty-list/casualty-card/casualty-card.html"
+            >preview</a
+          >
         </button>
       </div>
     </div>
@@ -162,7 +168,7 @@
         </a>
       </button>
 
-      <button class="addCasualty">
+      <button id="addCasualty" class="addCasualty">
         <a href="">
           <img
             src="../../asets/svg's/plus-circle-svgrepo-com.svg"
