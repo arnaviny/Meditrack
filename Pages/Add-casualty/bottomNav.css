@@ -1,5 +1,4 @@
-.botomNav {
-    position: fixed;
+.botomNav {    position: sticky;
     bottom: 0;
     left: 0;
     right: 0;
