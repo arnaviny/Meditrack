@@ -90,6 +90,14 @@ function createVictimCard(victim) {
   
     return card;
   }
+
+  document.querySelectorAll(".more-button").forEach(button => {
+    button.addEventListener("click", () => {
+        const victimId = button.getAttribute("data-victim-id"); // Ensure data-victim-id exists
+        window.location.href = `casualty-details.html?id=${victimId}`;
+    });
+});
+
   
   // פונקציה להוספת הקלפים למכולה בדף
 function renderVictimCards() {

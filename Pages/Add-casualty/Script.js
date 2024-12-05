@@ -242,8 +242,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Log the object to the console
     console.log("Form Data:", formData);
-
-    // Save the data to localStorage
-    localStorage.setItem("form-data", JSON.stringify(formData));
+    localStorage.setItem('form-data', JSON.stringify(formData)) //push
+    const data = JSON.parse(localStorage.getItem('form-data')) //pull
+    
+    // Optional: Perform further actions, such as sending the data to a server
   });
 });
