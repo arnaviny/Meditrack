@@ -1,35 +1,3 @@
-// const data = getItem
-const addCasualty = document.getElementById("addCasualty");
-addCasualty.addEventListener("click", (event) => {
-  event.preventDefault(); // Prevent default form submission behavior
-
-  // Create an object to hold all form data
-  const formData = [];
-
-  console.log("Form Data:", formData);
-  if (!localStorage.getItem("form-data")) {
-    localStorage.setItem("form-data", JSON.stringify(formData)); //push
-  }
-  const data = JSON.parse(localStorage.getItem("form-data"));
-  //selc on shock sign
-});
-// const addCasualty = document.getElementById("addCasualty");
-
-// addCasualty.addEventListener("click", (event) => {
-//     event.preventDefault(); // Prevent default button behavior
-
-//     // Retrieve existing data from localStorage, or initialize an empty array if no data exists
-//     let formData = JSON.parse(localStorage.getItem("form-data")) || [];
-
-//     // Add an empty object or placeholder to represent a new casualty
-//     formData.push({});
-
-//     // Save the updated array back to localStorage
-//     localStorage.setItem("form-data", JSON.stringify(formData));
-
-//     // Log the data to verify it's being updated correctly
-//     console.log("Updated Form Data:", formData);
-// });
 const shockButtons = document.querySelectorAll(".shock-item");
 const submitButton = document.getElementById("submitButton");
 
@@ -215,11 +183,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     formData.blsTreatments = [...selectedTreatmentsBLS]; // Copy of BLS treatments
     formData.alsTreatments = [...selectedTreatmentsALS]; // Copy of ALS treatments
-
-    // let oldeFormData = localStorage.getItem(formData)
     // Log the object to the console
     console.log("Form Data:", formData);
-    formData.victimID = 3;
+
+    let victimID = localStorage.getItem("victimID");
+    victimID = victimID && !isNaN(victimID) ? parseInt(victimID, 10) : 0; // Validate and parse as number, default to 0 if invalid
+
+    // Increment the victimID
+    victimID += 1;
+
+    // Assign the incremented victimID to your formData object
+    formData.victimID = victimID;
+    // Save the updated victimID back to localStorage for future increments
+    localStorage.setItem("victimID", victimID);
     const mainData = JSON.parse(localStorage.getItem("form-data"));
     mainData.push(formData);
     localStorage.setItem("form-data", JSON.stringify(mainData)); //push
