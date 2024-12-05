@@ -231,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     loadHistory();
+    
 
     
 });
