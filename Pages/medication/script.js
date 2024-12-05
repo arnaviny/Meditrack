@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    const mdnBackBtn = document.getElementById('mdn-back-button')
+    mdnBackBtn.addEventListener('click', () => {
+        history.back()
+        console.log("the button is clicked");
+        
+    } )
+
     const mdnInput = document.getElementById("mdn-input");
     const mdnName = document.getElementById("mdn-name");
 
@@ -224,4 +231,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     loadHistory();
+
+    
 });
