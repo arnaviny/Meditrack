@@ -4,250 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Camera Capture with Tesseract.js</title>
-    <style>
-       /* עיצוב כללי */
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #000;
-}
-
-/* מיכל מצלמה */
-#camera-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-/* וידאו */
-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-video, canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-
-/* כפתור צילום */
-#capture-button {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70px;
-    height: 70px;
-    background-color: #ff3b30;
-    border: none;
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    color: white;
-    font-size: 30px;
-    text-align: center;
-    line-height: 70px;
-    cursor: pointer;
-    z-index: 10;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-#capture-button:active {
-    transform: scale(1.2);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* מלבן שקוף */
-#focus-box {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    height: 57%;
-    border: 2px solid white;
-    box-shadow: 0 0 10px 267px rgb(0 0 0 / 56%);
-    z-index: 3;
-    pointer-events: none;
-}
-#result-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-#result-container p {
-    font-size: 20px;
-    margin: 10px 0;
-}
-
-#result-container button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #57e772;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-    </style>
+    <link rel="stylesheet" href="CameraCapture.css">
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v2.1.4/dist/tesseract.min.js"></script>
 </head>
 <body>
     <div id="camera-container">
-        <div id="overlay">
-            <div id="focus-box"></div>
-        </div>
+        <div id="focus-box"></div>
         <video id="video" autoplay playsinline></video>
         <button id="capture-button"></button>
         <canvas id="canvas" style="display:none;"></canvas>
     </div>
 
-    <div id="result-container" style="display:none;">
+    <div id="result-container">
         <p id="recognized-name"></p>
         <p id="recognized-id"></p>
-        <button id="retry-button">Retry</button>
-        <button id="save-button">Save</button>
+        <div class="button">
+            <button id="retry-button">Retry</button>
+            <button id="save-button">Save</button>
+            <button id="cancel-button">Cancel</button>
+        </div>
+        
     </div>
 
-    <script>
-        const video = document.getElementById('video');
-        const captureButton = document.getElementById('capture-button');
-        const canvas = document.getElementById('canvas');
-        const context = canvas.getContext('2d');
-        const resultContainer = document.getElementById('result-container');
-        const recognizedName = document.getElementById('recognized-name');
-        const recognizedID = document.getElementById('recognized-id');
-        const retryButton = document.getElementById('retry-button');
-        const saveButton = document.getElementById('save-button');
-    
-        let stream = null;
-    
-        // הפעלת מצלמה
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-            .then(videoStream => {
-                stream = videoStream;
-                video.srcObject = stream;
-            })
-            .catch(err => {
-                console.error("Error accessing the camera:", err);
-                alert("לא ניתן לגשת למצלמה. בדוק הרשאות.");
-            });
-    
-        // פונקציה לעיבוד תמונה: קונטרסט, טשטוש וחידוד
-        function enhanceImage(canvas) {
-            const ctx = canvas.getContext('2d');
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const data = imageData.data;
-    
-            // קונטרסט דינמי
-            for (let i = 0; i < data.length; i += 4) {
-                data[i] = Math.min(255, data[i] * 1.5); // אדום
-                data[i + 1] = Math.min(255, data[i + 1] * 1.5); // ירוק
-                data[i + 2] = Math.min(255, data[i + 2] * 1.5); // כחול
-            }
-    
-            ctx.putImageData(imageData, 0, 0);
-        }
-    
-        // קליטת תמונה בלחיצה על הכפתור
-        captureButton.addEventListener('click', () => {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    
-            enhanceImage(canvas); // שיפור תמונה
-    
-            // מציג את התמונה שצולמה
-            video.style.display = 'none'; // הסתרת הווידאו
-            canvas.style.display = 'block'; // הצגת התמונה
-    
-            // עיבוד עם Tesseract.js לזיהוי שם ומספר אישי
-            const image = canvas.toDataURL('image/jpeg');
-            captureButton.disabled = true; // מניעת לחיצה נוספת עד סיום העיבוד
-            captureButton.textContent = "מעבד..."; // שינוי טקסט הכפתור
-    
-            Tesseract.recognize(
-                image,
-                'heb+eng',
-                { logger: info => console.log(info) }
-            ).then(({ data: { text } }) => {
-                const lines = text.split('\n');
-    
-                // זיהוי טקסט לפי "שם" ו"מספר אישי"
-                const nameLine = lines.find(line => line.includes("שם"));
-                const idLine = lines.find(line => line.includes("מספר אישי"));
-    
-                const name = nameLine ? nameLine.replace("שם", "").trim() : "שם לא זוהה";
-                const id = idLine ? idLine.replace("מספר אישי", "").trim() : "מספר אישי לא זוהה";
-    
-                recognizedName.textContent = `שם: ${name}`;
-                recognizedID.textContent = `מספר אישי: ${id}`;
-    
-                // שמירת הנתונים ב-localStorage
-                const nameAndID = { name, ID: id };
-                const existingData = JSON.parse(localStorage.getItem('transcriptions')) || [];
-                existingData.push(nameAndID);
-                localStorage.setItem('transcriptions', JSON.stringify(existingData));
-    
-                console.log("נתונים שנשמרו:", nameAndID);
-    
-                // מעבר לתוצאות
-                canvas.style.display = 'none'; // הסתרת התמונה
-                resultContainer.style.display = 'flex'; // הצגת התוצאה
-            }).catch(err => {
-                console.error("שגיאה במהלך עיבוד ה-OCR:", err);
-                alert("שגיאה בזיהוי התמונה.");
-                captureButton.disabled = false; // הפעלת הכפתור מחדש
-                captureButton.textContent = "📸"; // שחזור הטקסט המקורי בכפתור
-            });
-        });
-    
-        // כפתור "צלם מחדש"
-        retryButton.addEventListener('click', () => {
-            location.reload(); // טוען מחדש את הדף
-        });
-    
-        // כפתור "שמור"
-        saveButton.addEventListener('click', () => {
-            const nameAndID = {
-                name: recognizedName.textContent.replace("שם: ", ""),
-                ID: recognizedID.textContent.replace("מספר אישי: ", "")
-            };
-            console.log("נתונים שנשמרו:", nameAndID);
-    
-            // שמירת הנתונים ב-localStorage (במקרה שלא נשמר קודם)
-            const existingData = JSON.parse(localStorage.getItem('transcriptions')) || [];
-            existingData.push(nameAndID);
-            localStorage.setItem('transcriptions', JSON.stringify(existingData));
-    
-            // חזרה לדף הקודם עם הנתונים
-            history.back(); // מחזיר את המשתמש לדף הקודם
-        });
-    </script>
-    
-    
-    
-        
+    <script src="CameraCapture.js"> </script>
 </body>
 </html>
-
