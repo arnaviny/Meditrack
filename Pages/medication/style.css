@@ -1,0 +1,658 @@
+body {
+    background-color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    text-align: center;
+    padding: 1rem;
+    background-color: #000000;
+    border-bottom: 1px solid #ddd;
+    color: white;
+}
+
+main {
+    padding: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+fieldset {
+    
+    border-radius: 5px;
+    border-color: #b1b8d6;
+}
+label {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+#mdn-input {
+    font-size: 18px;
+    padding: 5px;
+    height: 35px;
+    width: 300px;
+    border:  1px solid #535372;
+    outline: none;
+    margin-top: 10px;
+    border-radius: 5px;
+    
+}
+
+#mdn-name {
+    position: absolute;
+    background-color: white;
+    border-radius: 0 0 8px 5px;
+    border: #776f97 5px solid;
+    border-top: none;
+    font-family: sans-serif;
+    width: 295px;
+    padding: 5px;
+    max-height: 10rem;
+    overflow-y: auto;
+    opacity: 1;
+    z-index: 20;
+}
+
+#mdn-name option {
+    background-color: white;
+    padding: 4px;
+    
+    margin-bottom: 1px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#mdn-name option:hover, .active {
+    background-color: lightblue;
+}
+
+
+.add-mdn-container {
+    display: flex;
+    padding: 7px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1%;
+    border: rgb(191, 195, 214) solid 0.5px;
+}
+
+
+
+button {
+
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.wheel-container {
+    /* margin-right: 1rem; */
+    position: relative;
+    height: 150px;
+    width: 24%;
+    cursor: pointer;
+}
+
+.wheel-lines {
+    position: absolute;
+    top: 45px;
+    left: -75px;
+    height: 60px;
+    width: 150px;
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+}
+
+.decimal-point {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 150px;
+    /* Align with Swiper height */
+    width: 1%;
+}
+
+
+
+.swiper {
+    height: 150px;
+}
+
+
+.picker {
+    height: 150px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    border-right: 1px solid #ddd;
+    border-radius: 4px;
+
+}
+
+.swiper-wrapper {
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+}
+
+.swiper-slide {
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    /* border-bottom: 1px solid #ddd; */
+    box-sizing: border-box;
+    opacity: 0.4;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.swiper-slide-active {
+    opacity: 1;
+}
+
+.swiper-slide-next,
+.swiper-slide-prev {
+    opacity: 0.5;
+}
+
+.unit-type-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+}
+
+#unit-type {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.unit-button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.increment-buttons-container {
+    display: flex;
+    justify-content: space-around;
+}
+hr {
+    margin-top: 13px;
+    margin-bottom: -7px;
+}
+
+#mdn-submit-btn {
+    background-color: black;
+    color: white;
+    width: 100px;
+    margin-top: 7px;
+    border-radius: 8px;
+}
+
+#manual-input-left {
+    opacity: 0;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    width: 60%;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    z-index: 10;
+    /* Ensure the input is above the Swiper */
+    background: rgb(255, 255, 255);
+    /* Transparent background */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#manual-input-right {
+    opacity: 0;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    width: 46%;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    z-index: 10;
+    /* Ensure the input is above the Swiper */
+    background: rgb(255, 255, 255);
+    /* Transparent background */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#manual-input-left:hover,
+#manual-input-right:hover {
+    cursor: pointer;
+}
+
+#manual-input-left:focus {
+    opacity: 1;
+}
+
+#manual-input-right:focus {
+    opacity: 1;
+}
+
+#amount-presentor {
+
+    font-size: 2.5rem;
+    text-align: center;
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: #acbbbf solid 1px;
+    background-color: rgb(215, 215, 215);
+
+}
+
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.timestamp-text {
+font-size: .8rem;
+font-style: italic;
+margin-left: 10px;
+}
+
+.delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
+body {
+    background-color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    position: relative;
+    text-align: center;
+    padding: 1rem;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #000000;
+    border-bottom: 1px solid #ddd;
+    color: white;
+}
+
+.back-button-container {
+    position: absolute;
+    top: 70px;
+    left: 15px;
+
+}
+
+#mdn-back-button {
+    background-color: #1e1eda;
+    border-radius: 50%;
+    box-shadow: 2px 1px 11px 3px rgb(40 40 42 / 59%);
+    padding: 0px;
+scale: 1;
+}
+
+#mdn-back-button:active {
+    scale: .9;
+    fill: #8ba0fa;
+}
+
+.back-btn-svg {
+    height: 100%;
+    width: 100%;
+    fill: white;
+}
+
+#mdn-input-container {
+    margin-top: 10px;
+    margin-bottom: 7px;
+}
+
+main {
+    padding: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+fieldset {
+
+    border-radius: 5px;
+    border-color: #b1b8d6;
+}
+
+label {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+#mdn-input {
+    font-size: 18px;
+    padding: 5px;
+    height: 35px;
+    width: 300px;
+    border: 1px solid #535372;
+    outline: none;
+    margin-top: 10px;
+    border-radius: 5px;
+
+}
+
+#mdn-name {
+    position: absolute;
+    background-color: white;
+    border-radius: 0 0 8px 5px;
+    border: #776f97 5px solid;
+    border-top: none;
+    font-family: sans-serif;
+    width: 295px;
+    padding: 5px;
+    max-height: 10rem;
+    overflow-y: auto;
+    opacity: 1;
+    z-index: 20;
+}
+
+#mdn-name option {
+    background-color: white;
+    padding: 4px;
+
+    margin-bottom: 1px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#mdn-name option:hover,
+.active {
+    background-color: lightblue;
+}
+
+
+.add-mdn-container {
+    display: flex;
+    padding: 7px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1%;
+    border: rgb(191, 195, 214) solid 0.5px;
+}
+
+
+button {
+
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.wheel-container {
+    /* margin-right: 1rem; */
+    position: relative;
+    height: 150px;
+    width: 24%;
+    cursor: pointer;
+}
+
+.wheel-lines {
+    position: absolute;
+    top: 45px;
+    left: -75px;
+    height: 60px;
+    width: 150px;
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+}
+
+.decimal-point {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 150px;
+    /* Align with Swiper height */
+    width: 1%;
+}
+
+
+
+.swiper {
+    height: 150px;
+}
+
+
+.picker {
+    height: 150px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    border-right: 1px solid #ddd;
+    border-radius: 4px;
+
+}
+
+.swiper-wrapper {
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+}
+
+.swiper-slide {
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    /* border-bottom: 1px solid #ddd; */
+    box-sizing: border-box;
+    opacity: 0.4;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.swiper-slide-active {
+    opacity: 1;
+}
+
+.swiper-slide-next,
+.swiper-slide-prev {
+    opacity: 0.5;
+}
+
+.unit-type-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+}
+
+#unit-type {
+    font-size: 1.2rem;;
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.7rem;
+    margin-left: 3px;
+    border-radius: 5px;
+}
+
+.unit-button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.increment-buttons-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+hr {
+    margin-top: 13px;
+    margin-bottom: -7px;
+}
+
+#mdn-submit-btn {
+    background-color: black;
+    color: white;
+    width: 100px;
+    margin-top: 7px;
+    border-radius: 8px;
+}
+
+#manual-input-left {
+    opacity: 0;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    width: 60%;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    z-index: 10;
+    /* Ensure the input is above the Swiper */
+    background: rgb(255, 255, 255);
+    /* Transparent background */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#manual-input-right {
+    opacity: 0;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    width: 46%;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    z-index: 10;
+    /* Ensure the input is above the Swiper */
+    background: rgb(255, 255, 255);
+    /* Transparent background */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#manual-input-left:hover,
+#manual-input-right:hover {
+    cursor: pointer;
+}
+
+#manual-input-left:focus {
+    opacity: 1;
+}
+
+#manual-input-right:focus {
+    opacity: 1;
+}
+
+#amount-presentor {
+
+    font-size: 2.5rem;
+    text-align: center;
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    padding-top: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: #acbbbf solid 1px;
+    background-color: rgb(215, 215, 215);
+
+}
+
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.timestamp-text {
+    font-size: .8rem;
+    font-style: italic;
+    margin-left: 10px;
+}
+
+.delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
+
+#save-history-btn {
+    margin-top: 6px;
+    color: white;
+    background-color: #1e1eda;
+    border-radius: 12px;
+}
