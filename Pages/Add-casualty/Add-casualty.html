@@ -12,13 +12,13 @@
       <header class="top">
         <h1>Casualty Detail</h1>
         <button class="camera">
-            <a href="./CameraCapture/CameraCapture.html">
-          <img
-            class="logo-camera"
-            src="../../asets/svg's/QR SCAN.svg"
-            alt="logo of scan"
-          />
-        </a>
+          <a href="./CameraCapture/CameraCapture.html">
+            <img
+              class="logo-camera"
+              src="../../asets/svg's/QR SCAN.svg"
+              alt="logo of scan"
+            />
+          </a>
         </button>
       </header>
 
@@ -112,9 +112,10 @@
         <label for="treatment-select"><b>BLS Treatment:</b></label>
         <select id="treatment-select">
           <option value="" disabled selected>Treatments</option>
-          <option value="Bleeding Control">
-            - Bleeding Control (Direct Pressure/Pressure Point/Tourniquet)
-          </option>
+          <option value="Bleeding Control">- Bleeding Control</option>
+          <option value="Direct Pressure">- Direct Pressure</option>
+          <option value="Pressure Point">- Pressure Point</option>
+          <option value="Tourniquet">- Tourniquet</option>
           <option value="Splints">- Splints</option>
           <option value="Chest Seal">- Chest Seal</option>
           <option value="Basic Respiratory Support">
@@ -130,16 +131,13 @@
           <option value="" disabled selected>Treatments</option>
           <option value="Intubation">- Intubation</option>
           <option value="Chest Tube">- Chest Tube</option>
-          <!-- <option value="Medication Administration">
-            - Medication Administration (e.g., Morphine, Tropein) >
-          </option> -->
           <option value="Needle Decompression">- Needle Decompression</option>
           <option value="- IV Fluids">- IV Fluids</option>
         </select>
 
         <button id="add-treatment-atn">Add</button>
         <div id="selected-treatments-ALS" class="selected-treatments">
-          <button id="addMadication" class="add-madication">
+          <a href="../medication/medication.html"><button id="addMadication" class="add-madication">
             Add Medication Administration
           </button>
         </div>
@@ -179,11 +177,21 @@
           Add casualty
         </a>
       </button>
-      <button class="ptt" onmousedown="startListening()" onmouseup="stopListening()">
-        <img src="../../asets/svg's/microphone-svgrepo-com.svg" alt="" class="botomNavSVG ptt-icon"> <br>
-          PTT
+      <button
+        class="ptt"
+        onmousedown="startListening()"
+        onmouseup="stopListening()"
+      >
+        <img
+          src="../../asets/svg's/microphone-svgrepo-com.svg"
+          alt=""
+          class="botomNavSVG ptt-icon"
+        />
+        <br />
+        PTT
       </button>
     </nav>
+    <script src="../medication/addCasualtyButton.js" ></script>
     <script src="Script.js"></script>
     <script src="../PTT/common.js"></script>
   </body>
