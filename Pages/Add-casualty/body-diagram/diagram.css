@@ -85,7 +85,11 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 55%;
+<<<<<<< HEAD
     height: 55%;
+=======
+    height: 62%;
+>>>>>>> 64404087e2c376570c6c5783a7fc161f1d99bea7
     max-width: 250px;
     display: none; /* Hidden by default */
     z-index: 10;

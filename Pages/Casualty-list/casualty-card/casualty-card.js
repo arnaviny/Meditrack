@@ -147,4 +147,27 @@ function createVictimCard(victim) {
   
   // קריאה לפונקציה
   renderVictimCards();
+
+  document.querySelectorAll(".more-button").forEach(button => {
+    button.addEventListener("click", (event) => {
+        // חילוץ המספר מתוך ה-data-victim-id
+        const victimIdString = event.target.closest(".victim-card").querySelector("#victim-number").textContent; 
+        if (victimIdString) {
+            // שימוש ב-regex לחילוץ המספר
+            const victimId = victimIdString.match(/\d+/)[0].replace(/^0+/, ''); // חילוץ המספר והסרת אפסים מיותרים
+            if (victimId) {
+                // מעבר לדף פרטי הפצוע עם ID
+                window.location.href = `./Pages/casualty-details/casualty-details.html?id=${victimId}`;
+            } else {
+                console.error("Failed to extract valid victim ID from:", victimIdString);
+            }
+        } else {
+            console.error("No victim ID found for this card.");
+        }
+    });
+});
+
+
+
+
   
