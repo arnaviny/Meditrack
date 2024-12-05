@@ -1,0 +1,137 @@
+{
+    "victimNumber": "Victim #L0001",
+    "identification": {
+        "name": "John Smith",
+        "id": "3740211234016"
+    },
+    "vitalsHistory": {
+        "pulse": [
+            {
+                "status": "fast",
+                "time": "2024-12-04T10:00:00Z"
+            },
+            {
+                "status": "normal",
+                "time": "2024-12-04T10:10:00Z"
+            }
+        ],
+        "breathing": [
+            {
+                "status": "none",
+                "time": "2024-12-04T10:00:00Z"
+            },
+            {
+                "status": "slow",
+                "time": "2024-12-04T10:10:00Z"
+            }
+        ],
+        "bloodPressure": [
+            {
+                "status": "weak",
+                "time": "2024-12-04T10:00:00Z"
+            },
+            {
+                "status": "strong",
+                "time": "2024-12-04T10:10:00Z"
+            }
+        ],
+        "consciousnessLevel": [
+            {
+                "status": "responds to voice",
+                "time": "2024-12-04T10:00:00Z"
+            },
+            {
+                "status": "fully conscious",
+                "time": "2024-12-04T10:10:00Z"
+            }
+        ]
+    },
+    "shockSignsHistory": {
+        "sweating": [
+            {
+                "isPresent": true,
+                "time": "2024-12-04T10:00:00Z"
+            },
+            {
+                "isPresent": false,
+                "time": "2024-12-04T10:10:00Z"
+            }
+        ],
+        "fastAndWeakPulse": [
+            {
+                "isPresent": true,
+                "time": "2024-12-04T10:00:00Z"
+            },
+            {
+                "isPresent": false,
+                "time": "2024-12-04T10:10:00Z"
+            }
+        ],
+        "changesInConsciousness": [
+            {
+                "isPresent": true,
+                "time": "2024-12-04T10:00:00Z"
+            },
+            {
+                "isPresent": false,
+                "time": "2024-12-04T10:10:00Z"
+            }
+        ],
+        "paleness": [
+            {
+                "isPresent": true,
+                "time": "2024-12-04T10:00:00Z"
+            },
+            {
+                "isPresent": false,
+                "time": "2024-12-04T10:10:00Z"
+            }
+        ]
+    },
+    "injuryDetails": [
+        {
+            "location": "right arm",
+            "mechanism": "fracture",
+            "time": "2024-12-04T10:00:00Z"
+        },
+        {
+            "location": "left leg",
+            "mechanism": "bleeding",
+            "time": "2024-12-04T10:15:00Z"
+        }
+    ],
+    "blsTreatments": [
+        {
+            "treatment": "directPressure",
+            "isApplied": true,
+            "time": "2024-12-04T10:05:00Z"
+        },
+        {
+            "treatment": "tourniquet",
+            "isApplied": true,
+            "time": "2024-12-04T10:10:00Z"
+        }
+    ],
+    "alsTreatments": [
+        {
+            "treatment": "intubation",
+            "isApplied": true,
+            "time": "2024-12-04T10:15:00Z"
+        },
+        {
+            "treatment": "needleDecompression",
+            "isApplied": false,
+            "time": "2024-12-04T10:20:00Z"
+        }
+    ],
+    "statusHistory": [
+        {
+            "status": "critical",
+            "time": "2024-12-04T10:00:00Z"
+        },
+        {
+            "status": "stable",
+            "time": "2024-12-04T10:30:00Z"
+        }
+    ]
+}
