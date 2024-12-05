@@ -1,5 +1,35 @@
-//selc on shock sign
+// const data = getItem
+const addCasualty = document.getElementById("addCasualty");
+addCasualty.addEventListener("click", (event) => {
+  event.preventDefault(); // Prevent default form submission behavior
 
+  // Create an object to hold all form data
+  const formData = [];
+
+  console.log("Form Data:", formData);
+  if (!localStorage.getItem("form-data")) {
+    localStorage.setItem("form-data", JSON.stringify(formData)); //push
+  }
+  const data = JSON.parse(localStorage.getItem("form-data"));
+  //selc on shock sign
+});
+// const addCasualty = document.getElementById("addCasualty");
+
+// addCasualty.addEventListener("click", (event) => {
+//     event.preventDefault(); // Prevent default button behavior
+
+//     // Retrieve existing data from localStorage, or initialize an empty array if no data exists
+//     let formData = JSON.parse(localStorage.getItem("form-data")) || [];
+
+//     // Add an empty object or placeholder to represent a new casualty
+//     formData.push({});
+
+//     // Save the updated array back to localStorage
+//     localStorage.setItem("form-data", JSON.stringify(formData));
+
+//     // Log the data to verify it's being updated correctly
+//     console.log("Updated Form Data:", formData);
+// });
 const shockButtons = document.querySelectorAll(".shock-item");
 const submitButton = document.getElementById("submitButton");
 
@@ -186,9 +216,13 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.blsTreatments = [...selectedTreatmentsBLS]; // Copy of BLS treatments
     formData.alsTreatments = [...selectedTreatmentsALS]; // Copy of ALS treatments
 
+    // let oldeFormData = localStorage.getItem(formData)
     // Log the object to the console
     console.log("Form Data:", formData);
-    localStorage.setItem("form-data", JSON.stringify(formData)); //push
+    formData.victimID = 3;
+    const mainData = JSON.parse(localStorage.getItem("form-data"));
+    mainData.push(formData);
+    localStorage.setItem("form-data", JSON.stringify(mainData)); //push
     const data = JSON.parse(localStorage.getItem("form-data")); //pull
 
     // Optional: Perform further actions, such as sending the data to a server
