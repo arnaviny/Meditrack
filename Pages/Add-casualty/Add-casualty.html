@@ -12,11 +12,13 @@
       <header class="top">
         <h1>Casualty Detail</h1>
         <button class="camera">
+            <a href="./CameraCapture/CameraCapture.html">
           <img
             class="logo-camera"
             src="../../asets/svg's/QR SCAN.svg"
             alt="logo of scan"
           />
+        </a>
         </button>
       </header>
 
@@ -142,7 +144,7 @@
         <button id="submitButton">Submit</button>
         <button id="clearButton" class="clear-btn">Clear</button>
         <button id="previewButton" class="preview-button">
-          <a href="home page">preview</a>
+          <a href="Pages\Cajualty-list\casualty-card\casualty-card.html">preview</a>
         </button>
       </div>
     </div>
@@ -151,7 +153,7 @@
       <button class="victims">
         <a href="../Casualty-list/casualty-card/casualty-card.html">
           <img
-            src="../../../asets/svg's/light-emergency-on-svgrepo-com.svg"
+            src="../../asets/svg's/light-emergency-on-svgrepo-com.svg"
             alt="victims svg"
             class="botomNavSVG"
           />
@@ -163,7 +165,7 @@
       <button class="addCasualty">
         <a href="">
           <img
-            src="../../../asets/svg's/plus-circle-svgrepo-com.svg"
+            src="../../asets/svg's/plus-circle-svgrepo-com.svg"
             alt=""
             class="botomNavSVG"
           />
@@ -171,18 +173,12 @@
           Add casualty
         </a>
       </button>
-      <button class="ptt">
-        <a href="">
-          <img
-            src="../../../asets/svg's/microphone-svgrepo-com.svg"
-            alt=""
-            class="botomNavSVG"
-          />
-          <br />
+      <button class="ptt" onmousedown="startListening()" onmouseup="stopListening()">
+        <img src="../../asets/svg's/microphone-svgrepo-com.svg" alt="" class="botomNavSVG ptt-icon"> <br>
           PTT
-        </a>
       </button>
     </nav>
     <script src="Script.js"></script>
+    <script src="../PTT/common.js"></script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 * {
- margin: 0;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
@@ -165,7 +165,10 @@
   align-items: center;
   flex-direction: column;
 }
-.more iframe{
+.more h1 {
+  font-size: 1.5em;
+}
+.more iframe {
   height: 90vh;
   width: 90%;
   display: flex;

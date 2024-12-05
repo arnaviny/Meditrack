@@ -1,4 +1,4 @@
-//selc on shock sign  
+//selc on shock sign
 
 const shockButtons = document.querySelectorAll(".shock-item");
 const submitButton = document.getElementById("submitButton");
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const formInputs = document.querySelectorAll("input[type='text']");
   const dropdowns = document.querySelectorAll("select");
   const shockButtons = document.querySelectorAll(".shock-item");
-// clear button
+  // clear button
   // Add event listener to the clear button
   clearButton.addEventListener("click", () => {
     // Clear all text inputs
@@ -150,14 +150,67 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Form cleared.");
   });
 });
-//print deatils
-// Ensure the script runs after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
-  // Get references to the submit button and all input elements
+  // Get references to relevant elements
   const submitButton = document.getElementById("submitButton");
   const formInputs = document.querySelectorAll("input[type='text']");
   const dropdowns = document.querySelectorAll("select");
   const shockButtons = document.querySelectorAll(".shock-item");
+
+  // References for BLS and ALS treatments
+  const treatmentSelectBLS = document.getElementById("treatment-select");
+  const selectedTreatmentsBLSContainer = document.getElementById(
+    "selected-treatments"
+  );
+  const addTreatmentBLSButton = document.getElementById("add-treatment-btn");
+
+  const treatmentSelectALS = document.getElementById("treatment-select-ALS");
+  const selectedTreatmentsALSContainer = document.getElementById(
+    "selected-treatments-ALS"
+  );
+  const addTreatmentALSButton = document.getElementById("add-treatment-atn");
+
+  // Arrays to store selected treatments
+  let selectedTreatmentsBLS = [];
+  let selectedTreatmentsALS = [];
+
+  // Add selected BLS treatments to the list
+  addTreatmentBLSButton.addEventListener("click", () => {
+    const selectedTreatment = treatmentSelectBLS.value;
+    if (
+      selectedTreatment &&
+      !selectedTreatmentsBLS.includes(selectedTreatment)
+    ) {
+      selectedTreatmentsBLS.push(selectedTreatment);
+
+      // Display the selected treatment
+      const treatmentItem = document.createElement("div");
+      treatmentItem.textContent = selectedTreatment;
+      selectedTreatmentsBLSContainer.appendChild(treatmentItem);
+
+      // Clear the dropdown selection
+      treatmentSelectBLS.value = "";
+    }
+  });
+
+  // Add selected ALS treatments to the list
+  addTreatmentALSButton.addEventListener("click", () => {
+    const selectedTreatment = treatmentSelectALS.value;
+    if (
+      selectedTreatment &&
+      !selectedTreatmentsALS.includes(selectedTreatment)
+    ) {
+      selectedTreatmentsALS.push(selectedTreatment);
+
+      // Display the selected treatment
+      const treatmentItem = document.createElement("div");
+      treatmentItem.textContent = selectedTreatment;
+      selectedTreatmentsALSContainer.appendChild(treatmentItem);
+
+      // Clear the dropdown selection
+      treatmentSelectALS.value = "";
+    }
+  });
 
   // Add event listener to the submit button
   submitButton.addEventListener("click", (event) => {
@@ -183,11 +236,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     formData.shockSigns = selectedShockSigns;
 
+    // Add selected BLS and ALS treatments to the object
+    formData.blsTreatments = [...selectedTreatmentsBLS]; // Copy of BLS treatments
+    formData.alsTreatments = [...selectedTreatmentsALS]; // Copy of ALS treatments
+
     // Log the object to the console
     console.log("Form Data:", formData);
     localStorage.setItem('form-data', JSON.stringify(formData)) //push
     const data = JSON.parse(localStorage.getItem('form-data')) //pull
-    window.location.href = 'nextPage.html';
+    
     // Optional: Perform further actions, such as sending the data to a server
   });
 });
