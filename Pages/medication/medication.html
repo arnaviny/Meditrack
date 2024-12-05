@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bottomNav.css">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -196,6 +197,35 @@
     </main>
 
 
+    <nav class="botomNav">
+        <button class="victims">
+          <a href="../Casualty-list/casualty-card/casualty-card.html">
+            <img
+              src="../../asets/svg's/light-emergency-on-svgrepo-com.svg"
+              alt="victims svg"
+              class="botomNavSVG"
+            />
+            <br />
+            victims
+          </a>
+        </button>
+  
+        <button id="addCasualty" class="addCasualty">
+          <a href="">
+            <img
+              src="../../asets/svg's/plus-circle-svgrepo-com.svg"
+              alt=""
+              class="botomNavSVG"
+            />
+            <br />
+            Add casualty
+          </a>
+        </button>
+        <button class="ptt" onmousedown="startListening()" onmouseup="stopListening()">
+          <img src="../../asets/svg's/microphone-svgrepo-com.svg" alt="" class="botomNavSVG ptt-icon"> <br>
+            PTT
+        </button>
+      </nav>
 
     <script src="script.js"></script>
 </body>
