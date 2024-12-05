@@ -5,11 +5,32 @@ body {
 }
 
 header {
+    position: relative;
     text-align: center;
     padding: 1rem;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     background-color: #000000;
     border-bottom: 1px solid #ddd;
     color: white;
+}
+
+.back-button-container {
+    position: absolute;
+    top: 70px;
+    left: 15px;
+    
+}
+#mdn-back-button {
+    background-color: #1e1eda;
+    border-radius: 50%;
+    box-shadow:  2px 1px 11px 3px rgb(40 40 42 / 59%);
+    padding: 0px;
+}
+
+#mdn-input-container {
+    margin-top: 10px;
+    margin-bottom: 7px;
 }
 
 main {
@@ -84,7 +105,6 @@ label {
     gap: 1%;
     border: rgb(191, 195, 214) solid 0.5px;
 }
-
 
 
 button {
@@ -265,6 +285,7 @@ hr {
     border-radius: 10px;
     width: 150px;
     height: 50px;
+    padding-top: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
     border: #acbbbf solid 1px;
@@ -302,4 +323,11 @@ margin-left: 10px;
 
 .delete-button:hover {
     background-color: darkred;
+}
+
+#save-history-btn {
+    margin-top: 6px;
+    color: white;
+    background-color: #1e1eda;
+    border-radius: 12px;
 }

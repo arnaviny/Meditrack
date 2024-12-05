@@ -8,22 +8,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medication Manager</title>
-        <link rel="stylesheet" href="bottomNav.css">
 
 </head>
 
 <body>
     <header>
+        <div class="back-button-container">
+            <button id="mdn-back-button">
+                <svg fill="#ffffff" height="50px" width="55px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-4 -4 34.68 34.68" xml:space="preserve" stroke="#ffffff" stroke-width="0.00026676"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M26.105,21.891c-0.229,0-0.439-0.131-0.529-0.346l0,0c-0.066-0.156-1.716-3.857-7.885-4.59 c-1.285-0.156-2.824-0.236-4.693-0.25v4.613c0,0.213-0.115,0.406-0.304,0.508c-0.188,0.098-0.413,0.084-0.588-0.033L0.254,13.815 C0.094,13.708,0,13.528,0,13.339c0-0.191,0.094-0.365,0.254-0.477l11.857-7.979c0.175-0.121,0.398-0.129,0.588-0.029 c0.19,0.102,0.303,0.295,0.303,0.502v4.293c2.578,0.336,13.674,2.33,13.674,11.674c0,0.271-0.191,0.508-0.459,0.562 C26.18,21.891,26.141,21.891,26.105,21.891z"></path> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </g> </g></svg>
+            </button>
+        </div>
         <h1>Medication</h1>
     </header>
 
     <!-- ids on this page use "mdn-" for "medicine" to easily reference them -->
     <main>
-        <div>
+        <div id="mdn-input-container">
             <fieldset>
                 <label for="mdn-input">Medicine</label>
                 <input autocomplete="off" role="combobox" list="" id="mdn-input" name="medicine" placeholder="Select your medicine">
-                <!-- Keep the list attribute empty to hide the default dropdown icon and the browser's default datalist -->
         
                 <datalist id="mdn-name" role="listbox">
                     <option value="Aspirin">Aspirin</option>
@@ -160,41 +163,12 @@
             <!-- History log of medicines -->
             <h2>History</h2>
         </div>
-
+        <button id="save-history-btn">Update</button>
     </main>
-    <nav class="botomNav">
-        <button class="victims">
-          <a href="../Casualty-list/casualty-card/casualty-card.html">
-            <img
-              src="../../../asets/svg's/light-emergency-on-svgrepo-com.svg"
-              alt="victims svg"
-              class="botomNavSVG"
-            />
-            <br />
-            victims
-          </a>
-        </button>
-  
-        <button class="addCasualty">
-          <a href="../Add-casualty/Add-casualty.html">
-            <img
-              src="../../../asets/svg's/plus-circle-svgrepo-com.svg"
-              alt=""
-              class="botomNavSVG"
-            />
-            <br />
-            Add casualty
-          </a>
-        </button>
-        <button class="ptt" onmousedown="startListening()" onmouseup="stopListening()">
-          <img src="../../asets/svg's/microphone-svgrepo-com.svg" alt="" class="botomNavSVG ptt-icon"> <br>
-            PTT
-        </button>
-      </nav>
+
 
 
     <script src="script.js"></script>
-    <script src="../PTT/common.js"></script>
 </body>
 
 </html>

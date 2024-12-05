@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     const populatePicker = (selector, start, end, pad = false) => {
         const wrapper = document.querySelector(`${selector} .swiper-wrapper`);
         for (let i = start; i <= end; i++) {
@@ -93,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const rightValue = pickerRight.slides[pickerRight.activeIndex].textContent;
         const amountPresentor = document.getElementById('amount-presentor');
 
-        amountPresentor.textContent = `${leftValue} . ${rightValue}`;
+        amountPresentor.textContent = `${leftValue}.${rightValue}`;
     }
 
     pickerLeft.on('slideChange', updateAmountPresentor);
@@ -118,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (valueRight >= 0 && valueRight <= 99) {
             pickerRight.slideToLoop(valueRight + 1);
         }
-        // manualRight.blur();
     });
 
     manualLeft.addEventListener("input", () => {
@@ -126,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (valueLeft >= 0 && valueLeft <= 99) {
             pickerLeft.slideToLoop(valueLeft);
         }
-        // manualLeft.blur();
     });
 
     const addButton = document.getElementById('mdn-submit-btn');
@@ -145,18 +142,17 @@ document.addEventListener('DOMContentLoaded', () => {
         createHistoryItem(medicineName, dosage, unit);
     });
 
-    function createHistoryItem(medicineName, dosage, unit) {
+    function createHistoryItem(medicineName, dosage, unit, timestamp = null) {
         const historyContainer = document.getElementById('mdn-history-container');
         const historyItem = document.createElement('div');
         historyItem.className = 'history-item';
 
         const textElement = document.createElement('p');
         textElement.textContent = `${medicineName}: ${dosage}${unit}`;
-        textElement.className = 'mdn-text'
 
-        const timestamp = document.createElement('span');
-        timestamp.className = 'timestamp-text'
-        timestamp.textContent = getCurrentTimestamp();
+        const timestampElement = document.createElement('span');
+        timestampElement.className = 'timestamp-text';
+        timestampElement.textContent = timestamp || getCurrentTimestamp();
 
         function getCurrentTimestamp() {
             const currentTime = new Date();
@@ -168,10 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 minute: '2-digit',
                 hour12: false
             };
-            return currentTime.toLocaleString('en-US', options); // 
+            return currentTime.toLocaleString('en-US', options);
         }
 
-        // delete button implementation
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'X';
         deleteButton.className = 'delete-button';
@@ -184,11 +179,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         historyItem.appendChild(textElement);
-        historyItem.appendChild(timestamp);
+        historyItem.appendChild(timestampElement);
         historyItem.appendChild(deleteButton);
 
         historyContainer.appendChild(historyItem);
     }
 
+    const updateButton = document.getElementById('save-history-btn');
+    updateButton.addEventListener('click', () => {
+        const historyItems = document.querySelectorAll('.history-item');
+        const historyData = [];
 
+        historyItems.forEach(item => {
+            const text = item.querySelector('p').textContent;
+            const timestamp = item.querySelector('.timestamp-text').textContent;
+
+            const [medicineName, rest] = text.split(':');
+            const [dosage, unit] = rest.trim().split(/(?<=\d)(?=[a-zA-Z])/);
+
+            historyData.push({
+                medicineName: medicineName.trim(),
+                dosage: dosage.trim(),
+                unit: unit.trim(),
+                timestamp: timestamp.trim(),
+            });
+        });
+
+        const historyJSON = JSON.stringify(historyData);
+        localStorage.setItem('medicineHistory', historyJSON);
+
+        console.log('Saved to local storage:', historyJSON);
+        alert('History has been updated and saved!');
+    });
+
+    const loadHistory = () => {
+        const storedData = localStorage.getItem('medicineHistory');
+        if (storedData) {
+            const historyData = JSON.parse(storedData);
+
+            historyData.forEach(({ medicineName, dosage, unit, timestamp }) => {
+                createHistoryItem(medicineName, dosage, unit, timestamp);
+            });
+        }
+    };
+
+    loadHistory();
 });
