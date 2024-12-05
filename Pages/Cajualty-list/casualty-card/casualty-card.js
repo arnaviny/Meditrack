@@ -98,7 +98,7 @@ function createVictimCard(victim) {
     });
 });
 
-  
+    
   // פונקציה להוספת הקלפים למכולה בדף
 function renderVictimCards() {
     const container = document.getElementById("victim-cards-container"); // מזהה את המכולה
