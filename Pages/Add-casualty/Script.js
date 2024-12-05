@@ -183,16 +183,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     formData.blsTreatments = [...selectedTreatmentsBLS]; // Copy of BLS treatments
     formData.alsTreatments = [...selectedTreatmentsALS]; // Copy of ALS treatments
-
     // Log the object to the console
     console.log("Form Data:", formData);
-    formData.victimID = 1;
+
     let victimID = localStorage.getItem("victimID");
-    victimID = victimID ? parseInt(victimID, 10) : 0; // Parse as number or default to 0
+    victimID = victimID && !isNaN(victimID) ? parseInt(victimID, 10) : 0; // Validate and parse as number, default to 0 if invalid
+
     // Increment the victimID
     victimID += 1;
+
     // Assign the incremented victimID to your formData object
     formData.victimID = victimID;
+    // Save the updated victimID back to localStorage for future increments
     localStorage.setItem("victimID", victimID);
     const mainData = JSON.parse(localStorage.getItem("form-data"));
     mainData.push(formData);
