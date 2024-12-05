@@ -314,6 +314,16 @@
 .clear-btn:hover {
   background-color: #cc0000;
 }
+.add-madication{
+    background-color: #491108;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 .preview-button {
   background-color: #211c57;
   color: #fff;
