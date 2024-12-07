@@ -36,6 +36,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const injuriesData = {}; // אובייקט לאחסון פציעות לפי חלקי גוף
   let selectedPart = null;
 
+  let currentVictimID = localStorage.getItem("currentVictimID");
+  if (!currentVictimID) {
+    currentVictimID = victimID; // Assign current victimID
+    localStorage.setItem("currentVictimID", currentVictimID);
+  }
+
+  // Set the victimID in the form field
+  const victimIDField = document.getElementById("victimID");
+  if (victimIDField) {
+    victimIDField.value = currentVictimID; // Display the currentVictimID in the form
+  } else {
+    console.error("The victimID field is missing in the HTML.");
+  }
   // אירוע בחירת חלק גוף
   bodyParts.forEach((part) => {
     part.addEventListener("click", () => {
@@ -100,18 +113,28 @@ document.addEventListener("DOMContentLoaded", () => {
   // אירוע שליחת הפציעות
   submitButton.addEventListener("click", (e) => {
     e.preventDefault();
-
-    // שמירת המידע ב-localStorage
-    localStorage.setItem("injuriesData", JSON.stringify(injuriesData));
-
-    // וידוא שהאובייקט קיים ב-dev tools
-    console.log("Injuries data saved:", JSON.stringify(injuriesData, null, 2));
-
+  
+    // Load existing injuries data from localStorage or initialize an empty object
+    const allInjuriesData = JSON.parse(localStorage.getItem("injuriesData")) || {};
+  
+    // Add the current injuriesData under the current victimID
+    allInjuriesData[currentVictimID] = {
+      ...(allInjuriesData[currentVictimID] || {}), // Keep existing data for this victimID
+      injuriesData, // Update with new injuries data
+    };
+  
+    // Save updated data back to localStorage
+    localStorage.setItem("injuriesData", JSON.stringify(allInjuriesData));
+  
+    // Log the result for debugging
+    console.log("Updated injuries data:", allInjuriesData);
+  
     alert("Injuries submitted successfully!");
-
-    // איפוס
+  
+    // Reset the form and visual indicators
     bodyParts.forEach((part) => (part.style.fill = ""));
     formContainer.style.display = "none";
     selectedPart = null;
   });
+  
 });
