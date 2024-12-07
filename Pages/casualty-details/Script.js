@@ -1,94 +1,56 @@
-function goBack() {
-    window.history.back();
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-    const detailsContainer = document.getElementById("details-container");
-    const casualtyId = new URLSearchParams(window.location.search).get("id"); // Get ID from URL
-
-    if (!casualtyId) {
-        detailsContainer.innerHTML = "<p>Error: No casualty ID provided.</p>";
-        return;
+    const urlParams = new URLSearchParams(window.location.search);
+    const victimID = urlParams.get("victimID");
+  
+    if (!victimID) {
+      alert("No victim ID provided. Redirecting to the casualty list...");
+      window.location.href = "../Casualty-list/casualty-card.html";
+      return;
     }
-
-    const casualties = JSON.parse(localStorage.getItem("casualties")) || [];
-    const casualty = casualties.find(c => c.victimNumber === casualtyId);
-
-    if (!casualty) {
-        detailsContainer.innerHTML = "<p>Error: Casualty not found.</p>";
-        return;
+  
+    const mergedData = JSON.parse(localStorage.getItem("mergedData")) || [];
+    const victimData = mergedData.find(
+      (victim) => victim.victimNumber === `Victim #L${victimID.padStart(4, "0")}`
+    );
+  
+    if (!victimData) {
+      alert("Victim not found. Redirecting to the casualty list...");
+      window.location.href = "../Casualty-list/casualty-card.html";
+      return;
     }
-
-    // Generate HTML for casualty details
-    const casualtyHTML = `
-        <div class="casualty-card">
-            <h2>${casualty.victimNumber}</h2>
-            <p><strong>Name:</strong> ${casualty.victemIdentifiction?.name || "Unknown"}</p>
-            <p><strong>ID:</strong> ${casualty.victemIdentifiction?.id || "Unknown"}</p>
-            <p><strong>Status:</strong> ${casualty.status || "Unknown"}</p>
-            
-            <h3>Vitals</h3>
-            <ul>
-                <li><strong>Pulse:</strong> ${formatHistory(casualty.vitals?.pulse)}</li>
-                <li><strong>Breathing:</strong> ${formatHistory(casualty.vitals?.breathing)}</li>
-                <li><strong>Blood Pressure:</strong> ${formatHistory(casualty.vitals?.bloodPressure)}</li>
-                <li><strong>Consciousness Level:</strong> ${formatHistory(casualty.vitals?.consciousnessLevel)}</li>
-            </ul>
-
-            <h3>Shock Signs</h3>
-            ${formatShockSigns(casualty.vitals?.shockSigns)}
-
-            <h3>Injury Details</h3>
-            ${formatInjuryDetails(casualty.injuryDetails)}
-
-            <h3>BLS Treatments</h3>
-            ${formatTreatments(casualty.BLS)}
-
-            <h3>ALS Treatments</h3>
-            ${formatTreatments(casualty.ALS)}
-        </div>
-    `;
-
-    detailsContainer.innerHTML = casualtyHTML;
-});
-
-// Helper function to format history arrays
-function formatHistory(history = []) {
-    return history.length
-        ? history.map(entry => `${entry.value} at ${entry.time}`).join("<br>")
-        : "No data available";
-}
-
-// Helper function to format shock signs
-function formatShockSigns(shockSigns = {}) {
-    return Object.entries(shockSigns)
-        .map(
-            ([key, entry]) =>
-                `<li><strong>${key}:</strong> ${entry.isTrue ? "Yes" : "No"} (Last updated: ${entry.time || "N/A"})</li>`
-        )
-        .join("");
-}
-
-// Helper function to format injury details
-function formatInjuryDetails(injuryDetails = {}) {
-    return Object.entries(injuryDetails)
-        .map(
-            ([key, entry]) =>
-                `<li><strong>${key}:</strong> ${entry.location || "Unknown"} (${entry.mechanism || "Unknown"} at ${
-                    entry.time || "N/A"
-                })</li>`
-        )
-        .join("");
-}
-
-// Helper function to format treatments
-function formatTreatments(treatments = {}) {
-    return Object.entries(treatments)
-        .map(
-            ([key, entry]) =>
-                `<li><strong>${key}:</strong> ${entry.isTrue ? "Performed" : "Not Performed"} (Last updated: ${
-                    entry.time || "N/A"
-                })</li>`
-        )
-        .join("");
-}
+  
+    // Populate form fields
+    document.getElementById("name").value = victimData.identification.name || "";
+    document.getElementById("id").value = victimData.identification.id || "";
+    document.getElementById("pulse").value =
+      victimData.vitalsHistory.pulse.at(-1) || "";
+    document.getElementById("breathing").value =
+      victimData.vitalsHistory.breathing.at(-1) || "";
+    document.getElementById("blood-pressure").value =
+      victimData.vitalsHistory.bloodPressure.at(-1) || "";
+    document.getElementById("consciousness").value =
+      victimData.vitalsHistory.consciousnessLevel.at(-1) || "";
+  
+    // Save updated data on form submission
+    document.getElementById("updateButton").addEventListener("click", () => {
+      victimData.identification.name =
+        document.getElementById("name").value || "Unknown";
+      victimData.identification.id = document.getElementById("id").value || "Unknown";
+      victimData.vitalsHistory.pulse.push(document.getElementById("pulse").value);
+      victimData.vitalsHistory.breathing.push(
+        document.getElementById("breathing").value
+      );
+      victimData.vitalsHistory.bloodPressure.push(
+        document.getElementById("blood-pressure").value
+      );
+      victimData.vitalsHistory.consciousnessLevel.push(
+        document.getElementById("consciousness").value
+      );
+  
+      // Update localStorage
+      localStorage.setItem("mergedData", JSON.stringify(mergedData));
+  
+      alert("Victim details updated successfully!");
+    });
+  });
+  
