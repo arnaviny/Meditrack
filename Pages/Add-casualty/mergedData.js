@@ -1,24 +1,41 @@
-function mergeVictimData(victimID, formDataArray, victimInjuries, medicineHistory) {
-  if (!victimID) {
-    console.error("victimID is undefined or null. Ensure it is set correctly.");
+function mergeVictimData() {
+  const currentVictimID = localStorage.getItem("currentVictimID");
+
+  if (!currentVictimID) {
+    console.error("No currentVictimID found in localStorage.");
     return;
   }
 
   const existingMergedData = JSON.parse(localStorage.getItem("mergedData")) || [];
+  const formDataArray = JSON.parse(localStorage.getItem("form-data")) || [];
+  const victimInjuries = JSON.parse(localStorage.getItem("injuriesData")) || {};
+  const medicineHistory = JSON.parse(localStorage.getItem("medicineHistory")) || [];
+
+  // Filter form-data for the current victim
+  const currentFormData = formDataArray.filter(
+    (data) => data.victimID === currentVictimID
+  );
+
+  // Filter injuries and medicine history for the current victim
+  const currentVictimInjuries = victimInjuries[currentVictimID] || {};
+  const currentMedicineHistory = medicineHistory.filter(
+    (med) => med.victimID === currentVictimID
+  );
 
   let existingVictim = existingMergedData.find(
-    (entry) => entry.victimNumber === `Victim #L${victimID.toString().padStart(4, "0")}`
+    (entry) => entry.victimNumber === `Victim #L${currentVictimID.toString().padStart(4, "0")}`
   );
 
   if (existingVictim) {
-    existingVictim.vitalsHistory.pulse.push(formDataArray[0].pulse || "Unknown");
-    existingVictim.vitalsHistory.breathing.push(formDataArray[0].breathing || "Unknown");
-    existingVictim.vitalsHistory.bloodPressure.push(formDataArray[0]["blood-pressure"] || "Unknown");
-    existingVictim.vitalsHistory.consciousnessLevel.push(formDataArray[0]["consciousness-level"] || "Unknown");
+    // Update existing victim
+    existingVictim.vitalsHistory.pulse.push(currentFormData[0]?.pulse || "Unknown");
+    existingVictim.vitalsHistory.breathing.push(currentFormData[0]?.breathing || "Unknown");
+    existingVictim.vitalsHistory.bloodPressure.push(currentFormData[0]?.["blood-pressure"] || "Unknown");
+    existingVictim.vitalsHistory.consciousnessLevel.push(currentFormData[0]?.["consciousness-level"] || "Unknown");
 
-    existingVictim.shockSignsHistory.push(...(formDataArray[0].shockSigns || []));
+    existingVictim.shockSignsHistory.push(...(currentFormData[0]?.shockSigns || []));
     existingVictim.injuryDetails.push(
-      ...Object.entries(victimInjuries || {}).flatMap(([location, mechanisms]) =>
+      ...Object.entries(currentVictimInjuries || {}).flatMap(([location, mechanisms]) =>
         mechanisms.map((mechanism) => ({
           location,
           mechanism,
@@ -27,10 +44,10 @@ function mergeVictimData(victimID, formDataArray, victimInjuries, medicineHistor
       )
     );
 
-    existingVictim.blsTreatments.push(...(formDataArray[0].blsTreatments || []));
-    existingVictim.alsTreatments.push(...(formDataArray[0].alsTreatments || []));
+    existingVictim.blsTreatments.push(...(currentFormData[0]?.blsTreatments || []));
+    existingVictim.alsTreatments.push(...(currentFormData[0]?.alsTreatments || []));
     existingVictim.medicationHistory.push(
-      ...medicineHistory.map((med) => ({
+      ...currentMedicineHistory.map((med) => ({
         medicineName: med.medicineName,
         dosage: med.dosage,
         unit: med.unit,
@@ -38,37 +55,38 @@ function mergeVictimData(victimID, formDataArray, victimInjuries, medicineHistor
       }))
     );
 
-    existingVictim.statusHistory.push(...(formDataArray[0].statusHistory || []));
+    existingVictim.statusHistory.push(...(currentFormData[0]?.statusHistory || []));
   } else {
+    // Create a new victim entry
     const newVictimEntry = {
-      victimNumber: `Victim #L${victimID.toString().padStart(4, "0")}`,
+      victimNumber: `Victim #L${currentVictimID.toString().padStart(4, "0")}`,
       identification: {
-        name: formDataArray[0].name || "Unknown",
-        id: formDataArray[0].id || "Unknown",
+        name: currentFormData[0]?.name || "Unknown",
+        id: currentFormData[0]?.id || "Unknown",
       },
       vitalsHistory: {
-        pulse: [formDataArray[0].pulse || "Unknown"],
-        breathing: [formDataArray[0].breathing || "Unknown"],
-        bloodPressure: [formDataArray[0]["blood-pressure"] || "Unknown"],
-        consciousnessLevel: [formDataArray[0]["consciousness-level"] || "Unknown"],
+        pulse: [currentFormData[0]?.pulse || "Unknown"],
+        breathing: [currentFormData[0]?.breathing || "Unknown"],
+        bloodPressure: [currentFormData[0]?.["blood-pressure"] || "Unknown"],
+        consciousnessLevel: [currentFormData[0]?.["consciousness-level"] || "Unknown"],
       },
-      shockSignsHistory: formDataArray[0].shockSigns || [],
-      injuryDetails: Object.entries(victimInjuries || {}).flatMap(([location, mechanisms]) =>
+      shockSignsHistory: currentFormData[0]?.shockSigns || [],
+      injuryDetails: Object.entries(currentVictimInjuries || {}).flatMap(([location, mechanisms]) =>
         mechanisms.map((mechanism) => ({
           location,
           mechanism,
           time: new Date().toISOString(),
         }))
       ),
-      blsTreatments: formDataArray[0].blsTreatments || [],
-      alsTreatments: formDataArray[0].alsTreatments || [],
-      medicationHistory: medicineHistory.map((med) => ({
+      blsTreatments: currentFormData[0]?.blsTreatments || [],
+      alsTreatments: currentFormData[0]?.alsTreatments || [],
+      medicationHistory: currentMedicineHistory.map((med) => ({
         medicineName: med.medicineName,
         dosage: med.dosage,
         unit: med.unit,
         timestamp: med.timestamp,
       })),
-      statusHistory: formDataArray[0].statusHistory || [],
+      statusHistory: currentFormData[0]?.statusHistory || [],
     };
 
     existingMergedData.push(newVictimEntry);
