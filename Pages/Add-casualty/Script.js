@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Submit form functionality
   submitButton?.addEventListener("click", (event) => {
     event.preventDefault();
-
+  
     // Collect form data
     const formData = {};
     formInputs.forEach((input) => {
@@ -114,29 +114,39 @@ document.addEventListener("DOMContentLoaded", () => {
     dropdowns.forEach((dropdown) => {
       formData[dropdown.name] = dropdown.value;
     });
-
+  
     const selectedShockSigns = Array.from(shockButtons)
       .filter((button) => button.classList.contains("selected"))
       .map((button) => button.textContent);
-
+  
     formData.shockSigns = selectedShockSigns;
     formData.blsTreatments = [...selectedTreatmentsBLS];
     formData.alsTreatments = [...selectedTreatmentsALS];
     formData.victimID = currentVictimID; // Use current victimID
-
+  
     // Save the data in localStorage
     const mainData = JSON.parse(localStorage.getItem("form-data")) || [];
     mainData.push(formData);
     localStorage.setItem("form-data", JSON.stringify(mainData));
-
+  
+    // Retrieve existing data for merging
+    const victimInjuries = JSON.parse(localStorage.getItem("injuriesData")) || {};
+    const medicineHistory = JSON.parse(localStorage.getItem("medicineHistory")) || [];
+  
+    // Call the mergeVictimData function
+    mergeVictimData(currentVictimID, mainData, victimInjuries[currentVictimID] || {}, medicineHistory);
+  
     // Increment victimID for future entries
     const newVictimID = parseInt(currentVictimID, 10) + 1;
     localStorage.setItem("victimID", newVictimID);
     localStorage.removeItem("currentVictimID"); // Clear currentVictimID for next session
-
+  
+    alert("Casualty data saved successfully!");
+  
     // Redirect to the casualty card page
     window.location.href = "../Casualty-list/casualty-card/casualty-card.html";
   });
+  
 });
 
 // Add Medication button functionality
