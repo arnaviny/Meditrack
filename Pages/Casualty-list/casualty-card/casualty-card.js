@@ -167,7 +167,40 @@ function createVictimCard(victim) {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const addCasualtyButton = document.getElementById("addCasualty");
+  
+    addCasualtyButton.addEventListener("click", (event) => {
+      event.preventDefault();
+  
+      // Retrieve the last victimID from localStorage or initialize to 0
+      let victimID = parseInt(localStorage.getItem("victimID") || "0", 10);
+  
+      // Increment the victimID
+      victimID += 1;
+  
+      // Save the new victimID to localStorage
+      localStorage.setItem("victimID", victimID);
+      localStorage.setItem("currentVictimID", victimID);
+  
+      console.log(`New Victim ID created: ${victimID}`);
+  
+      // Redirect to Add-casualty.html
+      window.location.href = "../..//Add-casualty/Add-casualty.html";
+    });
+    
+  
+    // בדיקה אם victimID קיים ב- localStorage
+    if (!localStorage.getItem("victimID")) {
+      console.warn("victimID is not set. Initializing to 0.");
+      localStorage.setItem("victimID", "0");
+    }
+  });
+  
+  
 
+
+  
 
 
   
