@@ -1,24 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Retrieve the last victimID from localStorage or initialize to 1
-  let victimID = localStorage.getItem("victimID");
-  victimID = victimID && !isNaN(victimID) ? parseInt(victimID, 10) : 1;
+  // Get references to the clear button and form elements
+  const clearButton = document.getElementById("clearButton");
+  const formInputs = document.querySelectorAll("input[type='text']");
+  const dropdowns = document.querySelectorAll("select");
+  const shockButtons = document.querySelectorAll(".shock-item");
 
-  // Check if currentVictimID is already set
-  let currentVictimID = localStorage.getItem("currentVictimID");
-  if (!currentVictimID) {
-    currentVictimID = victimID; // Assign current victimID
-    localStorage.setItem("currentVictimID", currentVictimID);
-  }
+  // clear button
+  // Add event listener to the clear button
+  clearButton.addEventListener("click", () => {
+    // Clear all text inputs
+    formInputs.forEach((input) => {
+      input.value = "";
+    });
 
-  // Set the victimID in the form field
-  const victimIDField = document.getElementById("victimID");
-  if (victimIDField) {
-    victimIDField.value = currentVictimID; // Display the currentVictimID in the form
-  } else {
-    console.error("The victimID field is missing in the HTML.");
-  }
+    // Reset all dropdowns to their default option
+    dropdowns.forEach((dropdown) => {
+      dropdown.selectedIndex = 0;
+    });
 
-  // Form elements
+    // Deselect all shock buttons
+    shockButtons.forEach((button) => {
+      button.classList.remove("selected");
+    });
+    selectedTreatmentsContainerALS.forEach((button) => {
+      button.classList.remove("selected");
+    });
+
+    console.log("Form cleared.");
+  });
+});
+document.addEventListener("DOMContentLoaded", () => {
+  // Get references to relevant elements
   const submitButton = document.getElementById("submitButton");
   const formInputs = document.querySelectorAll("input[type='text']");
   const dropdowns = document.querySelectorAll("select");

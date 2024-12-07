@@ -88,21 +88,31 @@ function mergeVictimData() {
     }
 
     // עדכון היסטוריית תרופות
-    if (victimData[victimID]?.medicineHistory) {
-      const newMedications = victimData[victimID].medicineHistory;
-      newMedications.forEach((newMed) => {
-        const isDuplicate = existingVictim.medicationHistory.some(
+    // עדכון היסטוריית תרופות
+if (victimData[victimID]?.medicineHistory) {
+  const newMedications = victimData[victimID].medicineHistory;
+
+  // וודא שהיסטוריית התרופות של הפצוע קיימת
+  if (!existingVictim.medicationHistory) {
+      existingVictim.medicationHistory = [];
+  }
+
+  // הוסף תרופות חדשות שלא קיימות כבר
+  newMedications.forEach((newMed) => {
+      const isDuplicate = existingVictim.medicationHistory.some(
           (existingMed) =>
-            existingMed.medicineName === newMed.medicineName &&
-            existingMed.dosage === newMed.dosage &&
-            existingMed.unit === newMed.unit &&
-            existingMed.timestamp === newMed.timestamp
-        );
-        if (!isDuplicate) {
+              existingMed.medicineName === newMed.medicineName &&
+              existingMed.dosage === newMed.dosage &&
+              existingMed.unit === newMed.unit &&
+              existingMed.timestamp === newMed.timestamp
+      );
+
+      // אם אין כפילות, הוסף את התרופה
+      if (!isDuplicate) {
           existingVictim.medicationHistory.push(newMed);
-        }
-      });
-    }
+      }
+  });
+}
   });
 
   // שמור ל-localStorage
