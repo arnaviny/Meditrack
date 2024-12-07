@@ -1,0 +1,173 @@
+/* עיצוב כללי */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    padding: 20px;
+  }
+  
+  /* כותרת ראשית */
+  header {
+    background-color: #343a40;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.5em;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  /* טופס פרטי הפצוע */
+  #casualty-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* קבוצת פרטים */
+  .details-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .details-group .detail {
+    flex: 1 1 300px;
+  }
+  
+  .details-group .detail label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .details-group .detail input,
+  .details-group .detail select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .details-group .detail input:focus,
+  .details-group .detail select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* כפתורים */
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  
+  #save-button {
+    background-color: #28a745;
+  }
+  
+  #save-button:hover {
+    background-color: #218838;
+  }
+  
+  #cancel-button {
+    background-color: #dc3545;
+  }
+  
+  #cancel-button:hover {
+    background-color: #c82333;
+  }
+  
+  /* סרגל עליון */
+  .topNav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .topNav button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .topNav button:focus,
+  .topNav button:hover {
+    background-color: #555;
+  }
+
+  #vitalsChart {
+    margin: 20px auto;
+    max-width: 90%;
+  }
+  
+  .vital-signs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+  }
+  
+  .vital-signs label {
+    font-weight: bold;
+  }
+  
+  .select-vital {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  
+  
+  /* התאמה למסכים קטנים */
+  @media (max-width: 600px) {
+    .details-group .detail {
+      flex: 1 1 100%;
+    }
+    .topNav button {
+      font-size: 14px;
+      padding: 8px 15px;
+    }
+  }
+
+  

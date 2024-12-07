@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="Style.css">
   <link rel="stylesheet" href="topNav.css">
   <link rel="stylesheet" href="bottomNav.css">
+  <link rel="stylesheet" href="casualty-details.css">
+
 </head>
 <body>
   <div class="topNav">
@@ -26,6 +28,10 @@
       
       <label for="id">ID:</label>
       <input type="text" id="id" name="id" />
+
+      <div>
+        <canvas id="vitalsChart" width="400" height="200"></canvas>
+      </div>
       
       <label for="pulse">Pulse:</label>
       <input type="text" id="pulse" name="pulse" />
@@ -79,5 +85,7 @@
       <script src="../PTT/common.js"></script>
       <script src="details-script.js"></script>
       <script src="casualty-details.js"></script>
+      <script src="casualty-details-chart.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
