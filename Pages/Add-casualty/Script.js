@@ -1,206 +1,142 @@
-const shockButtons = document.querySelectorAll(".shock-item");
-const submitButton = document.getElementById("submitButton");
-
-// Toggle 'selected' class for shock signs
-shockButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    button.classList.toggle("selected");
-  });
-});
-//select Treatment BLS
-// Get references to DOM elements
-const treatmentSelect = document.getElementById("treatment-select");
-const addTreatmentBtn = document.getElementById("add-treatment-btn");
-const selectedTreatmentsContainer = document.getElementById(
-  "selected-treatments"
-);
-
-//select Treatment ALS
-const treatmentSelectALS = document.getElementById("treatment-select-ALS");
-const addTreatmentAtn = document.getElementById("add-treatment-atn");
-const selectedTreatmentsContainerALS = document.getElementById(
-  "selected-treatments-ALS"
-);
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Get references to the clear button and form elements
-  const clearButton = document.getElementById("clearButton");
-  const formInputs = document.querySelectorAll("input[type='text']");
-  const dropdowns = document.querySelectorAll("select");
-  const shockButtons = document.querySelectorAll(".shock-item");
+  // Retrieve the last victimID from localStorage or initialize to 1
+  let victimID = localStorage.getItem("victimID");
+  victimID = victimID && !isNaN(victimID) ? parseInt(victimID, 10) : 1;
 
-  // clear button
-  // Add event listener to the clear button
-  clearButton.addEventListener("click", () => {
-    // Clear all text inputs
-    formInputs.forEach((input) => {
-      input.value = "";
-    });
+  // Check if currentVictimID is already set
+  let currentVictimID = localStorage.getItem("currentVictimID");
+  if (!currentVictimID) {
+    currentVictimID = victimID; // Assign current victimID
+    localStorage.setItem("currentVictimID", currentVictimID);
+  }
 
-    // Reset all dropdowns to their default option
-    dropdowns.forEach((dropdown) => {
-      dropdown.selectedIndex = 0;
-    });
+  // Set the victimID in the form field
+  const victimIDField = document.getElementById("victimID");
+  if (victimIDField) {
+    victimIDField.value = currentVictimID; // Display the currentVictimID in the form
+  } else {
+    console.error("The victimID field is missing in the HTML.");
+  }
 
-    // Deselect all shock buttons
-    shockButtons.forEach((button) => {
-      button.classList.remove("selected");
-    });
-    selectedTreatmentsContainerALS.forEach((button) => {
-      button.classList.remove("selected");
-    });
-
-    console.log("Form cleared.");
-  });
-});
-document.addEventListener("DOMContentLoaded", () => {
-  // Get references to relevant elements
+  // Form elements
   const submitButton = document.getElementById("submitButton");
   const formInputs = document.querySelectorAll("input[type='text']");
   const dropdowns = document.querySelectorAll("select");
   const shockButtons = document.querySelectorAll(".shock-item");
+  const clearButton = document.getElementById("clearButton");
 
-  // References for BLS and ALS treatments
+  // Treatment-related variables
+  const selectedTreatmentsBLS = [];
+  const selectedTreatmentsALS = [];
+
   const treatmentSelectBLS = document.getElementById("treatment-select");
-  const selectedTreatmentsBLSContainer = document.getElementById(
-    "selected-treatments"
-  );
+  const selectedTreatmentsContainerBLS = document.getElementById("selected-treatments");
   const addTreatmentBLSButton = document.getElementById("add-treatment-btn");
 
   const treatmentSelectALS = document.getElementById("treatment-select-ALS");
-  const selectedTreatmentsALSContainer = document.getElementById(
-    "selected-treatments-ALS"
-  );
+  const selectedTreatmentsContainerALS = document.getElementById("selected-treatments-ALS");
   const addTreatmentALSButton = document.getElementById("add-treatment-atn");
 
-  // Arrays to store selected treatments
-  let selectedTreatmentsBLS = [];
-  let selectedTreatmentsALS = [];
-
-  // Add selected BLS treatments to the list
-  addTreatmentBLSButton.addEventListener("click", () => {
-    const selectedTreatment =
-      treatmentSelectBLS[treatmentSelectBLS.selectedIndex].value;
-    if (
-      selectedTreatment &&
-      !selectedTreatmentsBLS.includes(selectedTreatment)
-    ) {
-      selectedTreatmentsBLS.push(selectedTreatment);
-
-      const selectedValue = treatmentSelect.value;
-
-      if (selectedValue) {
-        // Create a new treatment icon
-        const treatmentIcon = document.createElement("div");
-        treatmentIcon.classList.add("treatment-icon");
-        treatmentIcon.textContent = selectedValue;
-
-        // Create a delete button
-        const deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("delete-btn");
-        deleteBtn.innerHTML = "&times;";
-        deleteBtn.addEventListener("click", () => {
-          treatmentIcon.remove();
-        });
-
-        // Append delete button to the treatment icon
-        treatmentIcon.appendChild(deleteBtn);
-
-        // Add the treatment icon to the container
-        selectedTreatmentsContainer.appendChild(treatmentIcon);
-
-        // Reset the dropdown menu
-        treatmentSelect.value = "";
-      }
-
-      // Clear the dropdown selection
-      treatmentSelectBLS.value = "";
-    }
+  // Toggle selected class for shock signs
+  shockButtons.forEach((button) => {
+    button.addEventListener("click", () => button.classList.toggle("selected"));
   });
 
-  // Add selected ALS treatments to the list
-  addTreatmentALSButton.addEventListener("click", () => {
-    const selectedTreatment =
-      treatmentSelectALS[treatmentSelectALS.selectedIndex].value;
-    const selectedValueALS = treatmentSelectALS.value;
+  // Add treatment (generic function for BLS and ALS)
+  const addTreatment = (treatmentSelect, selectedList, container) => {
+    const selectedValue = treatmentSelect.value;
+    if (selectedValue && !selectedList.includes(selectedValue)) {
+      selectedList.push(selectedValue);
 
-    if (
-      selectedTreatment &&
-      !selectedTreatmentsALS.includes(selectedTreatment)
-    ) {
-      selectedTreatmentsALS.push(selectedTreatment);
-    }
-    if (selectedValueALS) {
-      // Create a new treatment icon
-      const treatmentIconALS = document.createElement("div");
-      treatmentIconALS.classList.add("treatment-icon");
-      treatmentIconALS.textContent = selectedValueALS;
+      // Create a treatment icon
+      const treatmentIcon = document.createElement("div");
+      treatmentIcon.classList.add("treatment-icon");
+      treatmentIcon.textContent = selectedValue;
 
-      // Create a delete button
-      const deleteAtn = document.createElement("button");
-      deleteAtn.classList.add("delete-Atn");
-      deleteAtn.innerHTML = "&times;";
-      deleteAtn.addEventListener("click", () => {
-        treatmentIconALS.remove();
+      // Add a delete button
+      const deleteBtn = document.createElement("button");
+      deleteBtn.classList.add("delete-btn");
+      deleteBtn.innerHTML = "&times;";
+      deleteBtn.addEventListener("click", () => {
+        treatmentIcon.remove();
+        const index = selectedList.indexOf(selectedValue);
+        if (index > -1) selectedList.splice(index, 1);
       });
 
-      // Append delete button to the treatment icon
-      treatmentIconALS.appendChild(deleteAtn);
-
-      // Add the treatment icon to the container
-      selectedTreatmentsContainerALS.appendChild(treatmentIconALS);
-
-      // Reset the dropdown menu
-      treatmentSelectALS.value = "";
+      treatmentIcon.appendChild(deleteBtn);
+      container.appendChild(treatmentIcon);
+      treatmentSelect.value = ""; // Reset dropdown
     }
+  };
+
+  // Add treatment event listeners
+  addTreatmentBLSButton?.addEventListener("click", () =>
+    addTreatment(treatmentSelectBLS, selectedTreatmentsBLS, selectedTreatmentsContainerBLS)
+  );
+
+  addTreatmentALSButton?.addEventListener("click", () =>
+    addTreatment(treatmentSelectALS, selectedTreatmentsALS, selectedTreatmentsContainerALS)
+  );
+
+  // Clear form functionality
+  clearButton?.addEventListener("click", () => {
+    formInputs.forEach((input) => (input.value = ""));
+    dropdowns.forEach((dropdown) => (dropdown.selectedIndex = 0));
+    shockButtons.forEach((button) => button.classList.remove("selected"));
+    selectedTreatmentsContainerBLS.innerHTML = "";
+    selectedTreatmentsContainerALS.innerHTML = "";
+    selectedTreatmentsBLS.length = 0;
+    selectedTreatmentsALS.length = 0;
+    console.log("Form cleared.");
   });
-  // Add event listener to the submit button
-  submitButton.addEventListener("click", (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
 
-    // Create an object to hold all form data
+  // Submit form functionality
+  submitButton?.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    // Collect form data
     const formData = {};
-
-    // Add text input values to the object
     formInputs.forEach((input) => {
       formData[input.name] = input.value;
     });
-
-    // Add dropdown values to the object
     dropdowns.forEach((dropdown) => {
       formData[dropdown.name] = dropdown.value;
     });
 
-    // Add selected shock signs to the object
     const selectedShockSigns = Array.from(shockButtons)
       .filter((button) => button.classList.contains("selected"))
       .map((button) => button.textContent);
 
     formData.shockSigns = selectedShockSigns;
+    formData.blsTreatments = [...selectedTreatmentsBLS];
+    formData.alsTreatments = [...selectedTreatmentsALS];
+    formData.victimID = currentVictimID; // Use current victimID
 
-    // Add selected BLS and ALS treatments to the object
-    console.log(selectedTreatmentsALS);
-
-    formData.blsTreatments = [...selectedTreatmentsBLS]; // Copy of BLS treatments
-    formData.alsTreatments = [...selectedTreatmentsALS]; // Copy of ALS treatments
-    // Log the object to the console
-    console.log("Form Data:", formData);
-
-    let victimID = localStorage.getItem("victimID");
-    victimID = victimID && !isNaN(victimID) ? parseInt(victimID, 10) : 0; // Validate and parse as number, default to 0 if invalid
-
-    // Increment the victimID
-    victimID += 1;
-
-    // Assign the incremented victimID to your formData object
-    formData.victimID = victimID;
-    // Save the updated victimID back to localStorage for future increments
-    localStorage.setItem("victimID", victimID);
-    const mainData = JSON.parse(localStorage.getItem("form-data"));
+    // Save the data in localStorage
+    const mainData = JSON.parse(localStorage.getItem("form-data")) || [];
     mainData.push(formData);
-    localStorage.setItem("form-data", JSON.stringify(mainData)); //push
-    const data = JSON.parse(localStorage.getItem("form-data")); //pull
+    localStorage.setItem("form-data", JSON.stringify(mainData));
 
-    // Optional: Perform further actions, such as sending the data to a server
+    // Increment victimID for future entries
+    const newVictimID = parseInt(currentVictimID, 10) + 1;
+    localStorage.setItem("victimID", newVictimID);
+    localStorage.removeItem("currentVictimID"); // Clear currentVictimID for next session
+
+    // Redirect to the casualty card page
+    window.location.href = "../Casualty-list/casualty-card/casualty-card.html";
   });
+});
+
+// Add Medication button functionality
+document.getElementById("addMedicationButton").addEventListener("click", () => {
+  const victimIDField = document.getElementById("victimID");
+
+  if (!victimIDField || !victimIDField.value) {
+    alert("Victim ID is missing. Please add a casualty first.");
+    return;
+  }
+
+  const victimID = victimIDField.value; // Get victimID from the input field
+  localStorage.setItem("currentVictimID", victimID); // Save to localStorage
+  window.location.href = "../medication/medication.html"; // Redirect to medication page
 });
