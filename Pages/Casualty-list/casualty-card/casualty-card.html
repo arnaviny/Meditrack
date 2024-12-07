@@ -10,13 +10,13 @@
   <link rel="stylesheet" href="bottomNav.css">
 </head>
 <body>
-  <nav class="topNav">
-    <button data-filter="all">All</button>
-    <button data-filter="deceased">Deceased</button>
-    <button data-filter="critical">Critical</button>
-    <button data-filter="urgent">Urgent</button>
-    <button data-filter="stable">Stable</button>
-</nav>
+  <div class="topNav">
+    <button data-status="critical">Critical</button>
+    <button data-status="urgent">Urgent</button>
+    <button data-status="stable">Stable</button>
+    <button data-status="deceased">Deceased</button>
+    <button data-status="">All</button>
+</div>
 
 
     <div id="victim-cards-container"></div>
@@ -37,6 +37,15 @@
           Add casualty
         </a>
       </button>
+
+      <a href="../../notes/notes.html">
+        <button class="notes">
+          <img src="../../../asets/svg's/notes-svgrepo-com.svg"
+          alt="plus svg"
+          class="botomNavSVG">
+          Notes</button>
+      </a>
+
       <button class="ptt" onmousedown="startListening()" onmouseup="stopListening()">
         <img src="../../../asets/svg's/microphone-svgrepo-com.svg" alt="" class="botomNavSVG ptt-icon"> <br>
           PTT

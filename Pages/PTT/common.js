@@ -4,7 +4,9 @@ const recognition = new SpeechRecognition();
 recognition.lang = "he-IL"; // Set language to Hebrew
 recognition.interimResults = false;
 
-let transcriptions = ""; // String to store transcriptions
+// Retrieve existing transcriptions from localStorage or initialize an empty array
+let transcriptions = localStorage.getItem("transcriptions");
+transcriptions = transcriptions ? transcriptions.split("\n") : [];
 
 // Add timestamp to each transcription
 function addTranscriptionWithTimestamp(text) {
@@ -30,16 +32,16 @@ recognition.onresult = (event) => {
         if (event.results[i].isFinal) {
             const text = event.results[i][0].transcript.trim(); // Get transcribed text
             const textWithTimestamp = addTranscriptionWithTimestamp(text); // Add timestamp
-            transcriptions += textWithTimestamp + "\n"; // Append to transcriptions
+            transcriptions.push(textWithTimestamp); // Add to transcriptions array
 
-            // Save transcription to localStorage
-            localStorage.setItem("transcriptions", transcriptions);
+            // Save updated transcriptions to localStorage
+            localStorage.setItem("transcriptions", transcriptions.join("\n"));
 
             // Log transcription
             console.log("Recognized text:", textWithTimestamp);
 
             // Log full transcription history
-            console.log("Full transcription history:", localStorage.getItem("transcriptions"));
+            console.log("Full transcription history:", transcriptions.join("\n"));
         }
     }
 };
@@ -56,3 +58,10 @@ if (pttButton) {
     pttButton.addEventListener("mousedown", startListening); // Start on press
     pttButton.addEventListener("mouseup", stopListening); // Stop on release
 }
+
+
+// Update localStorage and notify other tabs
+localStorage.setItem("transcriptions", transcriptions.join("\n"));
+
+// Notify the current tab to update the list
+window.dispatchEvent(new Event("storage"));

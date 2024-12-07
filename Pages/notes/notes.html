@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link rel="stylesheet" href="bottomNav.css">
+    <link rel="stylesheet" href="notes.css">
+</head>
+<body>
+        <section id="transcriptions-section">
+          <h1>Transcriptions</h1>
+          <ul id="transcriptions-list"></ul>
+        </section>
+      </main>
+
+
+    <nav class="botomNav">
+        <button class="victims">
+          <a href="../Casualty-list/casualty-card/casualty-card.html">
+            <img
+              src="../../asets/svg's/light-emergency-on-svgrepo-com.svg"
+              alt="victims svg"
+              class="botomNavSVG"
+            />
+            <br />
+            victims
+          </a>
+        </button>
+
+        
+  
+          <a href="../Add-casualty/Add-casualty.html">
+            <button class="add-casualty-button" id="addCasualtyButton" onclick="addCasualty()">
+              <img src="../../asets/svg's/plus-circle-svgrepo-com.svg"
+              alt="plus svg"
+              class="botomNavSVG">
+              Add casualty</button>
+          </a>
+
+          <a href="../notes/notes.html">
+            <button class="notes">
+              <img src="../../asets/svg's/notes-svgrepo-com.svg"
+              alt="plus svg"
+              class="botomNavSVG">
+              Notes</button>
+          </a>
+
+        <button class="ptt" onmousedown="startListening()" onmouseup="stopListening()">
+          <img src="../../asets/svg's/microphone-svgrepo-com.svg" alt="" class="botomNavSVG ptt-icon"> <br>
+            PTT
+        </button>
+      </nav>
+
+      <script src="notes.js" defer></script>
+      <script src="../PTT/common.js"></script>
+</body>
+</html>

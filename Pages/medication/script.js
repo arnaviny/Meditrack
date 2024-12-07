@@ -65,6 +65,96 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+// FDA API STARTS HERE
+
+const apiBase = "https://api.fda.gov/drug/label.json";
+const inputField = document.getElementById("drug-search");
+const suggestionsList = document.getElementById("suggestions");
+const searchButton = document.getElementById("search-button");
+const drugInfoDiv = document.getElementById("drug-info");
+
+// Fetch suggestions as the user types
+inputField.addEventListener("input", async (event) => {
+  const query = event.target.value.trim();
+  if (query.length < 2) {
+    suggestionsList.style.display = "none";
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${apiBase}?search=openfda.brand_name:${encodeURIComponent(query)}*&limit=5`
+    );
+    const data = await response.json();
+
+    if (data.results && data.results.length > 0) {
+      suggestionsList.innerHTML = data.results
+        .map(
+          (result) =>
+            `<li>${result.openfda.brand_name ? result.openfda.brand_name[0] : "Unknown"}</li>`
+        )
+        .join("");
+      suggestionsList.style.display = "block";
+    } else {
+      suggestionsList.innerHTML = "<li>No results found</li>";
+      suggestionsList.style.display = "block";
+    }
+  } catch (error) {
+    console.error("Error fetching suggestions:", error);
+  }
+});
+
+// Handle suggestion click
+suggestionsList.addEventListener("click", (event) => {
+  if (event.target.tagName === "LI") {
+    inputField.value = event.target.textContent.trim();
+    suggestionsList.style.display = "none";
+  }
+});
+
+// Perform search and display results
+searchButton.addEventListener("click", async () => {
+  const drugName = inputField.value.trim();
+  if (!drugName) {
+    drugInfoDiv.innerHTML = "<p>Please enter a drug name to search.</p>";
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      `${apiBase}?search=openfda.brand_name:"${encodeURIComponent(drugName)}"&limit=1`
+    );
+    const data = await response.json();
+
+    if (data.results && data.results.length > 0) {
+      const result = data.results[0];
+      const brandName = result.openfda.brand_name ? result.openfda.brand_name[0] : "N/A";
+      const genericName = result.openfda.generic_name ? result.openfda.generic_name[0] : "N/A";
+      const manufacturer = result.openfda.manufacturer_name ? result.openfda.manufacturer_name[0] : "N/A";
+      const purpose = result.purpose ? result.purpose.join(", ") : "N/A";
+      const indications = result.indications_and_usage ? result.indications_and_usage.join(" ") : "N/A";
+
+      drugInfoDiv.innerHTML = `
+        <h2>Drug Information</h2>
+        <p><strong>Brand Name:</strong> ${brandName}</p>
+        <p><strong>Generic Name:</strong> ${genericName}</p>
+        <p><strong>Manufacturer:</strong> ${manufacturer}</p>
+        <p><strong>Purpose:</strong> ${purpose}</p>
+        <p><strong>Indications and Usage:</strong> ${indications}</p>
+      `;
+    } else {
+      drugInfoDiv.innerHTML = "<p>No detailed information found for this drug.</p>";
+    }
+  } catch (error) {
+    console.error("Error fetching drug information:", error);
+    drugInfoDiv.innerHTML = "<p>An error occurred while fetching drug information.</p>";
+  }
+});
+
+
+
+// FDA API ENDS HERE
+
     const populatePicker = (selector, start, end, pad = false) => {
         const wrapper = document.querySelector(`${selector} .swiper-wrapper`);
         for (let i = start; i <= end; i++) {

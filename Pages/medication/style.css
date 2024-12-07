@@ -76,6 +76,59 @@ label {
 }
 
 
+/* FDA search styling */
+#fda-search-container {
+    border: rgb(191 86 104) solid 2px;
+    position: relative;
+    margin-top: 10px;
+    padding: 6px;
+    border-radius: 4px;
+    width: 400px;
+  }
+
+  #fda-search-container label {
+    font-size: 1.5rem;
+  }
+
+  #drug-search {
+    line-height: 1.6rem;
+    font-size: 1rem;
+    width: 250px;
+  }
+
+  #search-button {
+    margin-top: 6px;
+    color: white;
+    background-color: #e93131;
+    border-radius: 12px;
+  }
+  
+  #suggestions {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background: #fff;
+    display: none;
+  }
+  
+  #suggestions li {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  #suggestions li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  #drug-info {
+    margin-top: 20px;
+  }
+
+  /* FDA search ends here */
+
 .add-mdn-container {
     display: flex;
     padding: 7px;

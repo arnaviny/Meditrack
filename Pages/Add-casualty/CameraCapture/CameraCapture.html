@@ -1,31 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camera Capture with Tesseract.js</title>
-    <link rel="stylesheet" href="CameraCapture.css">
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v2.1.4/dist/tesseract.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="CameraCapture.css">
+  <title>Camera Capture</title>
 </head>
 <body>
-    <div id="camera-container">
-        <div id="focus-box"></div>
-        <video id="video" autoplay playsinline></video>
-        <button id="capture-button"></button>
-        <canvas id="canvas" style="display:none;"></canvas>
-    </div>
+  <video id="video" autoplay></video>
+  <canvas id="canvas"></canvas>
 
-    <div id="result-container">
-        <p id="recognized-name"></p>
-        <p id="recognized-id"></p>
-        <div class="button">
-            <button id="retry-button">Retry</button>
-            <button id="save-button">Save</button>
-            <button id="cancel-button">Cancel</button>
-        </div>
-        
-    </div>
+  <div id="result-container" style="display: none;">
+    <div id="recognized-name">Name: <span id="name"></span></div>
+    <div id="recognized-id">ID: <span id="id"></span></div>
+    <button id="retry-button">Retry</button>
+    <button id="cancel-button">Cancel</button>
+    <button id="save-button">Save</button>
+</div>
 
-    <script src="CameraCapture.js"> </script>
+  <button id="capture-button"></button>
+
+  <script src="CameraCapture.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js/dist/tesseract.min.js"></script>
+
 </body>
 </html>

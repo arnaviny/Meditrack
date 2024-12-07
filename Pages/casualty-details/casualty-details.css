@@ -1,16 +1,18 @@
 /* עיצוב כללי */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-  }
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
   
-  main {
-    display: flex;
-    flex-direction: column;
-    margin-top: 60px;
-    padding: 20px;
-  }
+main {
+  display: flex;
+  flex-direction: column;
+  margin-top: 70px;
+  /* padding: 20px; */
+}
+
   
   /* כותרת ראשית */
   header {
@@ -22,6 +24,7 @@ body {
     border-radius: 8px;
     margin-bottom: 20px;
   }
+  
   
   /* טופס פרטי הפצוע */
   #casualty-details-form {
@@ -35,6 +38,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
+  
   /* קבוצת פרטים */
   .details-group {
     display: flex;
@@ -42,9 +46,11 @@ body {
     gap: 20px;
   }
   
+  
   .details-group .detail {
     flex: 1 1 300px;
   }
+  
   
   .details-group .detail label {
     font-weight: bold;
@@ -52,14 +58,15 @@ body {
     margin-bottom: 5px;
   }
   
+  
   .details-group .detail input,
-  .details-group .detail select {
-    width: 100%;
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
+.details-group .detail select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
   
   .details-group .detail input:focus,
   .details-group .detail select:focus {
@@ -68,22 +75,30 @@ body {
   }
   
   /* כפתורים */
-  .buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    font-size: 1em;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
+  .details-group .detail input:focus,
+.details-group .detail select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* כפתורים */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1em;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
   
   button:hover {
     opacity: 0.9;
@@ -97,9 +112,10 @@ body {
     background-color: #218838;
   }
   
+  
   #cancel-button {
     background-color: #dc3545;
-  }
+  }  
   
   #cancel-button:hover {
     background-color: #c82333;
@@ -111,51 +127,76 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background-color: #333;
+    background-color:black;
     color: white;
-    display: flex;
-    justify-content: space-around;
     padding: 10px;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 95%;
+    height: 12%;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+  
   
   .topNav button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 16px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: relative;
+    top: 23px;
+    border: black solid 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    font-size: 1.2em;
     cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-  
-  .topNav button:focus,
-  .topNav button:hover {
-    background-color: #555;
+    
   }
 
-  #vitalsChart {
-    margin: 20px auto;
-    max-width: 90%;
-  }
+  h1{
+    font-size: 1.5em;
+    }
+
+    a {
+      text-decoration: none;
+    }
+        
   
-  .vital-signs {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 20px;
-  }
+  .topNav button:focus,
+.topNav button:hover {
+  background-color: #555;
+}
+
+
+#vitalsChart {
+  margin: 20px auto;
+  max-width: 90%;
+}
+
   
-  .vital-signs label {
-    font-weight: bold;
-  }
+.vital-signs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px;
+}
+
+
   
-  .select-vital {
-    padding: 10px;
-    font-size: 14px;
-  }
+.vital-signs label {
+  font-weight: bold;
+}
+
+  
+.select-vital {
+  padding: 10px;
+  font-size: 14px;
+}
   
   
   

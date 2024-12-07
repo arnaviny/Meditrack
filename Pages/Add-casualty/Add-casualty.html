@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Add casualty</title>
     <link rel="stylesheet" href="Style.css" />
     <link rel="stylesheet" href="bottomNav.css" />
   </head>
   <body>
     <div class="container">
       <header class="top">
-        <h1>Casualty Detail</h1>
+        <h1>Add Casualty</h1>
         <button class="camera">
           <a href="./CameraCapture/CameraCapture.html">
             <img
@@ -113,7 +113,15 @@
         <h1>choose injury location</h1>
         <iframe name="body-diagram" src="./body-diagram/diagram.html"></iframe>
       </div>
+
+      
+
       <div class="BLS-treatment">
+
+        <a href="../medication/medication.html"><button id="addMedicationButton" class="add-madication">
+          Add Medication Administration
+        </button></a>
+
         <label for="treatment-select"><b>BLS Treatment:</b></label>
         <select id="treatment-select">
           <option value="" disabled selected>Treatments</option>
@@ -142,20 +150,30 @@
 
         <button id="add-treatment-atn">Add</button>
         <div id="selected-treatments-ALS" class="selected-treatments">
-          <a href="../medication/medication.html"><button id="addMedicationButton" class="add-madication">
-            Add Medication Administration
-          </button>
+          
         </div>
+
+
+        <label for="status">Status</label>
+        <select class="select-status" name="status" id="status" required>
+          <option value="" disabled selected>Choose Status</option>
+          <option value="deceased">Deceased</option>
+          <option value="critical">Critical</option>
+          <option value="urgent">Urgent</option>
+          <option value="stable">Stable</option>
+        </select>
       </div>
-      <div class="submit-section">
-        <button id="submitButton">Submit</button>
-        <button id="clearButton" class="clear-btn">Clear</button>
-        <button id="previewButton" class="preview-button">
-          <a href="../Casualty-list/casualty-card/casualty-card.html"
-            >preview</a
-          >
-        </button>
-      </div>
+
+    </div>  
+    
+    <div class="submit-section">
+      <button id="submitButton">Submit</button>
+      <button id="clearButton" class="clear-btn">Clear</button>
+      <button id="previewButton" class="preview-button">
+        <a href="../Casualty-list/casualty-card/casualty-card.html"
+          >preview</a
+        >
+      </button>
     </div>
 
     <nav class="botomNav">
@@ -182,6 +200,15 @@
           Add casualty
         </a>
       </button>
+
+      <a href="../notes/notes.html">
+        <button class="notes">
+          <img src="../../asets/svg's/notes-svgrepo-com.svg"
+          alt="plus svg"
+          class="botomNavSVG">
+          Notes</button>
+      </a>
+
       <button
         class="ptt"
         onmousedown="startListening()"

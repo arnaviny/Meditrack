@@ -11,7 +11,7 @@
 </head>
 <body>
   <div class="topNav">
-    <button class="back-button" onclick="goBack()">Back</button>
+    <a href="../Casualty-list/casualty-card/casualty-card.html"><button class="back-button" onclick="goBack()">Back</button></a>
     <h1>Casualty Details</h1>
   </div>
   <div id="details-container">
@@ -64,18 +64,25 @@
             victims
           </a>
         </button>
+
+        
   
-        <button class="addCasualty">
-          <a href="">
-            <img
-              src="../../asets/svg's/plus-circle-svgrepo-com.svg"
-              alt=""
-              class="botomNavSVG"
-            />
-            <br />
-            Add casualty
+          <a href="../Add-casualty/Add-casualty.html">
+            <button class="add-casualty-button" id="addCasualtyButton" onclick="addCasualty()">
+              <img src="../../asets/svg's/plus-circle-svgrepo-com.svg"
+              alt="plus svg"
+              class="botomNavSVG">
+              Add casualty</button>
           </a>
-        </button>
+
+          <a href="../notes/notes.html">
+            <button class="notes">
+              <img src="../../asets/svg's/notes-svgrepo-com.svg"
+              alt="plus svg"
+              class="botomNavSVG">
+              Notes</button>
+          </a>
+
         <button class="ptt" onmousedown="startListening()" onmouseup="stopListening()">
           <img src="../../asets/svg's/microphone-svgrepo-com.svg" alt="" class="botomNavSVG ptt-icon"> <br>
             PTT
@@ -87,5 +94,6 @@
       <script src="casualty-details.js"></script>
       <script src="casualty-details-chart.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src="Script.js"></script>
 </body>
 </html>

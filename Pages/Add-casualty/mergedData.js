@@ -11,13 +11,13 @@ function mergeVictimData() {
 
     const victimID = String(entry.victimID).padStart(4, "0");
 
-    // מצא את הפצוע ב-mergedData אם הוא כבר קיים
+    // Find the existing victim in mergedData
     let existingVictim = mergedData.find(
       (victim) => victim.victimNumber === `Victim #L${victimID}`
     );
 
     if (!existingVictim) {
-      // אם הפצוע לא קיים, צור רשומה חדשה
+      // If the victim doesn't exist, create a new record
       existingVictim = {
         victimNumber: `Victim #L${victimID}`,
         identification: {
@@ -40,7 +40,7 @@ function mergeVictimData() {
       mergedData.push(existingVictim);
     }
 
-    // עדכון מידע קיים
+    // Update existing information
     if (entry.pulse) existingVictim.vitalsHistory.pulse.push(entry.pulse);
     if (entry.breathing) existingVictim.vitalsHistory.breathing.push(entry.breathing);
     if (entry["blood-pressure"])
@@ -66,7 +66,7 @@ function mergeVictimData() {
       ];
     }
 
-    // עדכון פציעות
+    // Update injuries
     if (victimData[victimID]?.injuriesData) {
       const injuryDetails = victimData[victimID].injuriesData;
       for (const [location, mechanisms] of Object.entries(injuryDetails)) {
@@ -87,9 +87,14 @@ function mergeVictimData() {
       }
     }
 
-    // עדכון היסטוריית תרופות
+    // Update medication history
     if (victimData[victimID]?.medicineHistory) {
       const newMedications = victimData[victimID].medicineHistory;
+
+      if (!existingVictim.medicationHistory) {
+        existingVictim.medicationHistory = [];
+      }
+
       newMedications.forEach((newMed) => {
         const isDuplicate = existingVictim.medicationHistory.some(
           (existingMed) =>
@@ -98,14 +103,23 @@ function mergeVictimData() {
             existingMed.unit === newMed.unit &&
             existingMed.timestamp === newMed.timestamp
         );
+
         if (!isDuplicate) {
           existingVictim.medicationHistory.push(newMed);
         }
       });
     }
+
+    // Update status history
+    if (entry.status) {
+      existingVictim.statusHistory.push({
+        status: entry.status,
+        time: new Date().toISOString(),
+      });
+    }
   });
 
-  // שמור ל-localStorage
+  // Save to localStorage
   console.log("Updated Merged Data:", JSON.stringify(mergedData, null, 2));
   localStorage.setItem("mergedData", JSON.stringify(mergedData));
 }
