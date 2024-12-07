@@ -48,11 +48,13 @@
             </button>
         </div>
         <h1>Medication</h1>
+        
     </header>
 
     <!-- ids on this page use "mdn-" for "medicine" to easily reference them -->
     <main>
         <div id="mdn-input-container">
+            <div id="victimIDDisplay"></div>
             <fieldset>
                 <label for="mdn-input">Medicine</label>
                 <input autocomplete="off" role="combobox" list="" id="mdn-input" name="medicine"
@@ -227,6 +229,7 @@
         </button>
       </nav>
     <script src="script.js"></script>
+    <script src="LoadAndSaveMedicationData.js"></script>
 </body>
 
 </html>
